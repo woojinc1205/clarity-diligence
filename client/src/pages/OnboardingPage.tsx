@@ -55,11 +55,11 @@ export default function OnboardingPage() {
       <div className="flex items-center justify-between px-8 py-5 border-b border-border">
         <div className="flex items-center gap-2.5">
           <img
-            src="/manus-storage/clarity-logo-mark_f49e8b7e.png"
-            alt="Clarity"
-            className="w-7 h-7 object-contain"
+            src="/manus-storage/lumatrace-official-light.png"
+            alt="Luma Trace"
+            className="h-8 object-contain"
           />
-          <span className="font-bold text-lg" style={{ fontFamily: "'DM Sans', sans-serif" }}>Clarity</span>
+
         </div>
         <button
           className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
                 transition={{ duration: 0.25 }}
               >
                 <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Set up your organization</h2>
-                <p className="text-muted-foreground mb-8">This helps Clarity contextualize your data and benchmarks.</p>
+                <p className="text-muted-foreground mb-8">This helps Luma Trace contextualize your data and benchmarks.</p>
 
                 <div className="space-y-5">
                   <div className="space-y-1.5">
@@ -162,7 +162,7 @@ export default function OnboardingPage() {
                 transition={{ duration: 0.25 }}
               >
                 <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Connect your data sources</h2>
-                <p className="text-muted-foreground mb-6">Select the systems you want Clarity to analyze. You can add more later.</p>
+                <p className="text-muted-foreground mb-6">Select the systems you want Luma Trace to analyze. You can add more later.</p>
 
                 <div className="grid grid-cols-2 gap-3">
                   {dataSources.map((source) => {
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
                 transition={{ duration: 0.25 }}
               >
                 <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>You're ready to go</h2>
-                <p className="text-muted-foreground mb-8">Clarity will begin analyzing your data. Initial insights are ready in minutes.</p>
+                <p className="text-muted-foreground mb-8">Luma Trace will begin analyzing your data. Initial insights are ready in minutes.</p>
 
                 <div className="rounded-xl border border-border p-6 bg-card space-y-4">
                   <div className="flex items-center justify-between">

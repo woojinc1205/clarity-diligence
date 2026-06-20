@@ -62,16 +62,10 @@ export default function LoginPage() {
           className="relative z-10 flex items-center gap-3"
         >
           <img
-            src="/manus-storage/clarity-logo-mark_f49e8b7e.png"
-            alt="Clarity"
-            className="w-10 h-10 object-contain"
+            src="/manus-storage/lumatrace-official-dark_a225acd4.png"
+            alt="Luma Trace"
+            className="h-12 object-contain"
           />
-          <span
-            className="text-2xl font-bold tracking-tight"
-            style={{ color: "oklch(0.95 0.02 195)", fontFamily: "'DM Sans', sans-serif" }}
-          >
-            Clarity
-          </span>
         </motion.div>
 
         {/* Hero copy */}
@@ -148,11 +142,10 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="flex items-center gap-2.5 mb-8 lg:hidden">
             <img
-              src="/manus-storage/clarity-logo-mark_f49e8b7e.png"
-              alt="Clarity"
-              className="w-8 h-8 object-contain"
+              src="/manus-storage/lumatrace-official-light.png"
+              alt="Luma Trace"
+              className="h-10 object-contain"
             />
-            <span className="text-xl font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>Clarity</span>
           </div>
 
           <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Sign in to your workspace</h2>
@@ -247,7 +240,7 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-xs text-muted-foreground text-center mt-8">
-            By signing in, you agree to Clarity's{" "}
+            By signing in, you agree to Luma Trace's{" "}
             <a href="#" className="underline underline-offset-2">Terms of Service</a>{" "}
             and{" "}
             <a href="#" className="underline underline-offset-2">Privacy Policy</a>.

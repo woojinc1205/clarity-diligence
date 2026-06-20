@@ -206,12 +206,12 @@ export default function ReportPage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <img
-                  src="/manus-storage/clarity-logo-mark_f49e8b7e.png"
-                  alt="Clarity"
-                  className="w-6 h-6 object-contain"
+                  src="/manus-storage/lumatrace-official-dark_a225acd4.png"
+                  alt="Luma Trace"
+                  className="h-6 object-contain"
                 />
                 <span className="text-sm font-semibold" style={{ color: "oklch(0.75 0.04 195)", fontFamily: "'DM Sans', sans-serif" }}>
-                  Clarity Intelligence Report
+                  Intelligence Report
                 </span>
               </div>
               <h2 className="text-3xl font-bold mb-1" style={{ color: "oklch(0.97 0.01 195)", fontFamily: "'DM Sans', sans-serif" }}>

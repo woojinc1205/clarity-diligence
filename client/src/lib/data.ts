@@ -277,7 +277,7 @@ export const reportSections: ReportSection[] = [
     title: "Executive Summary",
     type: "summary",
     priority: 1,
-    content: "Based on analysis of 6 connected data sources spanning 284,100+ records, Clarity has identified 6 high-priority opportunity areas with a combined estimated annual impact of $1.21M. The organization demonstrates strong operational fundamentals with a 73% process efficiency score, but significant value is being left on the table in Sales cycle management, client onboarding, and contract review workflows.",
+    content: "Based on analysis of 6 connected data sources spanning 284,100+ records, Luma Trace has identified 6 high-priority opportunity areas with a combined estimated annual impact of $1.21M. The organization demonstrates strong operational fundamentals with a 73% process efficiency score, but significant value is being left on the table in Sales cycle management, client onboarding, and contract review workflows.",
   },
   {
     id: "r2",

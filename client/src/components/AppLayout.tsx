@@ -83,9 +83,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <div className="flex items-center h-16 px-4 border-b" style={{ borderColor: "oklch(0.32 0.06 195)" }}>
           <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
             <img
-              src="/manus-storage/clarity-logo-mark_f49e8b7e.png"
-              alt="Clarity"
-              className="w-8 h-8 flex-shrink-0 object-contain"
+              src="/manus-storage/lumatrace-official-dark_a225acd4.png"
+              alt="Luma Trace"
+              className="w-28 flex-shrink-0 object-contain"
             />
             <AnimatePresence>
               {!collapsed && (
@@ -94,10 +94,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
                   animate={{ opacity: 1, width: "auto" }}
                   exit={{ opacity: 0, width: 0 }}
                   transition={{ duration: 0.15 }}
-                  className="font-bold text-lg tracking-tight overflow-hidden whitespace-nowrap"
+                  className="font-bold text-lg tracking-tight overflow-hidden whitespace-nowrap sr-only"
                   style={{ color: "oklch(0.95 0.02 195)", fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Clarity
+                  Luma Trace
                 </motion.span>
               )}
             </AnimatePresence>

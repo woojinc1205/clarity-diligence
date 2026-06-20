@@ -256,7 +256,7 @@ export default function OpportunitiesPage() {
               <div>
                 <p className="text-sm font-semibold" style={{ color: "oklch(0.35 0.10 195)" }}>How Goal Levers Work</p>
                 <p className="text-xs mt-0.5" style={{ color: "oklch(0.45 0.08 195)" }}>
-                  Adjust each lever to set your target goals. Clarity will calculate the projected impact on your organization and surface the specific opportunities that drive each lever toward your goal.
+                  Adjust each lever to set your target goals. Luma Trace will calculate the projected impact on your organization and surface the specific opportunities that drive each lever toward your goal.
                 </p>
               </div>
             </div>
