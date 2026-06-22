@@ -104,12 +104,21 @@ export default function AppLayout({ children }: AppLayoutProps) {
           style={{ borderBottom: `1px solid ${C.sidebarBorder}` }}
         >
           <Link href="/dashboard" className="flex items-center gap-2 min-w-0 overflow-hidden">
-            <img
-              src="/manus-storage/vantageiq-nav-logo_2cbb5917.png"
-              alt="VantageIQ"
-              className="flex-shrink-0 object-contain"
-              style={{ height: "28px", width: collapsed ? "28px" : "auto", maxWidth: collapsed ? "28px" : "160px", objectPosition: "left" }}
-            />
+            {collapsed ? (
+              <img
+                src="/manus-storage/vantageiq-icon-mark_1fa74aa3.png"
+                alt="VantageIQ"
+                className="flex-shrink-0 object-contain"
+                style={{ height: "32px", width: "32px" }}
+              />
+            ) : (
+              <img
+                src="/manus-storage/vantageiq-nav-logo_2cbb5917.png"
+                alt="VantageIQ"
+                className="flex-shrink-0 object-contain"
+                style={{ height: "28px", width: "auto", maxWidth: "160px", objectPosition: "left" }}
+              />
+            )}
           </Link>
         </div>
 
