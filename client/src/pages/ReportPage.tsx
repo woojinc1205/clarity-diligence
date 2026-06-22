@@ -206,8 +206,8 @@ export default function ReportPage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <img
-                  src="/manus-storage/lumatrace-official-dark_a225acd4.png"
-                  alt="Luma Trace"
+                  src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
+                  alt="VantageIQ"
                   className="h-6 object-contain"
                 />
                 <span className="text-sm font-semibold" style={{ color: "oklch(0.75 0.04 195)", fontFamily: "'DM Sans', sans-serif" }}>

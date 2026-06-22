@@ -62,8 +62,8 @@ export default function LoginPage() {
           className="relative z-10 flex items-center gap-3"
         >
           <img
-            src="/manus-storage/lumatrace-official-dark_a225acd4.png"
-            alt="Luma Trace"
+            src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
+            alt="VantageIQ"
             className="h-12 object-contain"
           />
         </motion.div>
@@ -142,8 +142,8 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="flex items-center gap-2.5 mb-8 lg:hidden">
             <img
-              src="/manus-storage/lumatrace-official-light.png"
-              alt="Luma Trace"
+              src="/manus-storage/vantageiq-logo-light_1562b792.svg"
+              alt="VantageIQ"
               className="h-10 object-contain"
             />
           </div>
@@ -240,7 +240,7 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-xs text-muted-foreground text-center mt-8">
-            By signing in, you agree to Luma Trace's{" "}
+            By signing in, you agree to VantageIQ's{" "}
             <a href="#" className="underline underline-offset-2">Terms of Service</a>{" "}
             and{" "}
             <a href="#" className="underline underline-offset-2">Privacy Policy</a>.

@@ -249,7 +249,7 @@ export default function SettingsPage() {
             <h3 className="text-sm font-semibold mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Notification Preferences</h3>
             {[
               { category: "Opportunities", items: [
-                { label: "New opportunity identified", desc: "When Luma Trace finds a new opportunity in your data", on: true },
+                { label: "New opportunity identified", desc: "When VantageIQ finds a new opportunity in your data", on: true },
                 { label: "Opportunity impact update", desc: "When estimated impact changes significantly", on: false },
               ]},
               { category: "Data & Sync", items: [
@@ -318,7 +318,7 @@ export default function SettingsPage() {
 
           <div className="bg-card rounded-lg border border-border p-5">
             <h3 className="text-sm font-semibold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>API Access</h3>
-            <p className="text-xs text-muted-foreground mb-3">Use API keys to access Luma Trace data programmatically</p>
+            <p className="text-xs text-muted-foreground mb-3">Use API keys to access VantageIQ data programmatically</p>
             <div className="flex items-center gap-2">
               <Input
                 value="ck_live_••••••••••••••••••••••••••••••••"

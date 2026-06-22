@@ -83,9 +83,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <div className="flex items-center h-16 px-4 border-b" style={{ borderColor: "oklch(0.32 0.06 195)" }}>
           <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
             <img
-              src="/manus-storage/lumatrace-official-dark_a225acd4.png"
-              alt="Luma Trace"
-              className="w-28 flex-shrink-0 object-contain"
+              src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
+              alt="VantageIQ"
+              className="w-32 flex-shrink-0 object-contain"
             />
             <AnimatePresence>
               {!collapsed && (
@@ -97,7 +97,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                   className="font-bold text-lg tracking-tight overflow-hidden whitespace-nowrap sr-only"
                   style={{ color: "oklch(0.95 0.02 195)", fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Luma Trace
+                  VantageIQ
                 </motion.span>
               )}
             </AnimatePresence>
