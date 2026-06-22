@@ -1,5 +1,5 @@
 /**
- * ReportPage — Clarity Design System
+ * ReportPage — VantageIQ Design System
  * Full due diligence report with executive summary, findings,
  * opportunity landscape, roadmap, and projected impact
  */

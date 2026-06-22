@@ -46,7 +46,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Clarity Brand Tokens */
+  /* VantageIQ Brand Tokens */
   --color-teal: var(--teal);
   --color-teal-light: var(--teal-light);
   --color-teal-dark: var(--teal-dark);
@@ -210,20 +210,20 @@
     }
   }
 
-  /* Clarity-specific utilities */
-  .clarity-card {
+  /* VantageIQ-specific utilities */
+  .vantageiq-card {
     @apply bg-card rounded-lg border border-border shadow-sm;
   }
 
-  .clarity-card-teal {
+  .vantageiq-card-teal {
     @apply border-l-4 border-l-[--color-teal];
   }
 
-  .clarity-card-amber {
+  .vantageiq-card-amber {
     @apply border-l-4 border-l-[--color-amber-brand];
   }
 
-  .clarity-card-emerald {
+  .vantageiq-card-emerald {
     @apply border-l-4 border-l-[--color-emerald-brand];
   }
 

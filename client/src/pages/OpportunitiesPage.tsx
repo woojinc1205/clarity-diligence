@@ -1,5 +1,5 @@
 /**
- * OpportunitiesPage — Clarity Design System
+ * OpportunitiesPage — VantageIQ Design System
  * Opportunity landscape with impact/effort matrix, goal-setting levers,
  * and baseline vs. target comparison
  */

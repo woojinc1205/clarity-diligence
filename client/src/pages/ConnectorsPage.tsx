@@ -1,5 +1,5 @@
 /**
- * ConnectorsPage — Clarity Design System
+ * ConnectorsPage — VantageIQ Design System
  * Data source connection management with status, sync controls,
  * and credential configuration
  */

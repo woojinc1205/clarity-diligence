@@ -1,5 +1,5 @@
 /**
- * LoginPage — Clarity Design System
+ * LoginPage — VantageIQ Design System
  * Split layout: left = hero with brand visual, right = login form
  */
 

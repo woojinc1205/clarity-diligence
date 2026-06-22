@@ -1,5 +1,5 @@
 /**
- * ProcessPage — Clarity Design System
+ * ProcessPage — VantageIQ Design System
  * End-to-end process visualization with swim lanes, status indicators,
  * and detailed drill-down panels
  */

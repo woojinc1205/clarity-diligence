@@ -1,5 +1,5 @@
 /**
- * AppLayout — Clarity Design System
+ * AppLayout — VantageIQ Design System
  * Corporate Modernism: Dark teal sidebar + white content canvas
  * Persistent sidebar with icon+label nav, collapsible on mobile
  */

@@ -1,5 +1,5 @@
 /**
- * OnboardingPage — Clarity Design System
+ * OnboardingPage — VantageIQ Design System
  * Multi-step onboarding: org setup → data source connection → review
  */
 

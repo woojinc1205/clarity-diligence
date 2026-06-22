@@ -1,5 +1,5 @@
 /**
- * DashboardPage — Clarity Design System
+ * DashboardPage — VantageIQ Design System
  * High-level organizational overview with KPI cards, trend charts,
  * department breakdown, and drill-down capability
  */

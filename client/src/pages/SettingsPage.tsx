@@ -1,5 +1,5 @@
 /**
- * SettingsPage — Clarity Design System
+ * SettingsPage — VantageIQ Design System
  * Organization settings, user management, notification preferences,
  * and data governance controls
  */
