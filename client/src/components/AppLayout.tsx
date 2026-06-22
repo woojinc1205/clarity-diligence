@@ -105,7 +105,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         >
           <Link href="/dashboard" className="flex items-center gap-2 min-w-0 overflow-hidden">
             <img
-              src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
+              src="/manus-storage/vantageiq-nav-logo_2cbb5917.png"
               alt="VantageIQ"
               className="flex-shrink-0 object-contain"
               style={{ height: "28px", width: collapsed ? "28px" : "auto", maxWidth: collapsed ? "28px" : "160px", objectPosition: "left" }}
