@@ -1,26 +1,48 @@
 /**
- * DashboardPage — VantageIQ Design System
- * High-level organizational overview with KPI cards, trend charts,
- * department breakdown, and drill-down capability
+ * DashboardPage — VantageIQ Stitch MD3 Design System
+ * KPI cards: ghost icon top-right, teal delta chips, amber border-l-4 for opportunities
+ * Charts: #002e2d primary line, #feae2c goal line, #717978 baseline dashed
+ * Table: surface-container-low header, hover:bg-tertiary-fixed/5
  */
 
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  TrendingUp, TrendingDown, Minus, ArrowRight, ChevronDown,
-  Users, DollarSign, Zap, Clock, Target, AlertTriangle, CheckCircle2, Info
+  TrendingUp, TrendingDown, Minus, ArrowRight,
+  Users, DollarSign, Zap, Clock, Target, AlertTriangle, CheckCircle2,
+  MoreVertical, Lightbulb
 } from "lucide-react";
 import {
   AreaChart, Area, LineChart, Line, BarChart, Bar,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Progress } from "@/components/ui/progress";
 import { kpis, trendData, processNodes, opportunities, type KPI, type ProcessNode } from "@/lib/data";
 import { Link } from "wouter";
+
+// Stitch color tokens
+const C = {
+  primary: "#002e2d",
+  amber: "#feae2c",
+  amberLight: "#ffddb4",
+  amberText: "#6b4500",
+  teal: "#76d6d5",
+  tealLight: "rgba(118,214,213,0.2)",
+  outline: "#717978",
+  outlineVariant: "#c0c8c7",
+  onSurface: "#0b1c30",
+  onSurfaceVariant: "#414848",
+  surfaceLowest: "#ffffff",
+  surfaceLow: "#eff4ff",
+  surfaceHigh: "#dce9ff",
+  error: "#ba1a1a",
+  errorContainer: "#ffdad6",
+  errorContainerText: "#93000a",
+  green: "#166534",
+  greenBg: "#dcfce7",
+};
 
 const kpiIcons: Record<string, React.ElementType> = {
   "Process Efficiency": Zap,
@@ -30,105 +52,143 @@ const kpiIcons: Record<string, React.ElementType> = {
   "Revenue per Employee": TrendingUp,
   "Automation Coverage": Target,
   "Customer Satisfaction": CheckCircle2,
-  "Identified Opportunities": AlertTriangle,
+  "Identified Opportunities": Lightbulb,
 };
 
 function KPICard({ kpi, index, onClick }: { kpi: KPI; index: number; onClick: () => void }) {
   const Icon = kpiIcons[kpi.label] ?? TrendingUp;
   const isPositiveDelta = (kpi.positive && kpi.delta > 0) || (!kpi.positive && kpi.delta < 0);
+  const isOpportunity = kpi.label === "Identified Opportunities";
+  const isNeutral = kpi.delta === 0;
   const TrendIcon = kpi.trend === "up" ? TrendingUp : kpi.trend === "down" ? TrendingDown : Minus;
+
+  const deltaColor = isNeutral
+    ? C.outline
+    : isPositiveDelta
+    ? C.teal
+    : C.error;
+  const deltaBg = isNeutral
+    ? "#e5eeff"
+    : isPositiveDelta
+    ? C.tealLight
+    : C.errorContainer;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-      whileHover={{ y: -2, boxShadow: "0 8px 24px oklch(0 0 0 / 0.08)" }}
+      transition={{ delay: index * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+      whileHover={{ y: -2 }}
       onClick={onClick}
-      className="bg-card rounded-lg border border-border p-5 cursor-pointer transition-shadow"
+      className="relative overflow-hidden cursor-pointer rounded-lg border transition-shadow"
+      style={{
+        background: C.surfaceLowest,
+        borderColor: C.outlineVariant,
+        borderLeftWidth: isOpportunity ? "4px" : "1px",
+        borderLeftColor: isOpportunity ? C.amber : C.outlineVariant,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        padding: "16px",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 12px rgba(0,0,0,0.08)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
+      }}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div
-          className="w-9 h-9 rounded-lg flex items-center justify-center"
-          style={{ background: "oklch(0.91 0.046 193.7)" }}
-        >
-          <Icon size={17} style={{ color: "oklch(0.38 0.153 193.7)" }} />
-        </div>
-        <span className="section-label">{kpi.category}</span>
+      {/* Ghost icon top-right */}
+      <div
+        className="absolute top-0 right-0 p-3 opacity-[0.07] group-hover:opacity-[0.14] transition-opacity pointer-events-none"
+      >
+        <Icon size={48} />
       </div>
 
-      <div className="mb-1">
+      <p className="text-xs mb-2" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+        {kpi.label}
+      </p>
+
+      <div className="flex items-baseline gap-2 mb-0">
         <span className="kpi-value-lg">{kpi.value}</span>
-        {kpi.unit && <span className="text-sm text-muted-foreground ml-1">{kpi.unit}</span>}
+        {kpi.unit && kpi.unit !== "%" && (
+          <span className="text-sm" style={{ color: C.onSurfaceVariant }}>{kpi.unit}</span>
+        )}
       </div>
 
-      <p className="text-xs text-muted-foreground mb-2">{kpi.label}</p>
-
-      <div className="flex items-center gap-1.5">
-        <TrendIcon
-          size={12}
-          style={{ color: isPositiveDelta ? "oklch(0.62 0.14 155)" : "oklch(0.60 0.20 15)" }}
-        />
+      <div className="flex items-center gap-1.5 mt-2">
         <span
-          className="text-xs font-medium"
-          style={{ color: isPositiveDelta ? "oklch(0.62 0.14 155)" : "oklch(0.60 0.20 15)" }}
+          className="flex items-center gap-0.5 text-xs font-semibold px-1.5 py-0.5 rounded"
+          style={{ color: deltaColor, background: deltaBg, fontFamily: "'Inter', sans-serif" }}
         >
+          <TrendIcon size={10} />
           {kpi.delta > 0 ? "+" : ""}{kpi.delta}{kpi.unit === "%" ? "pp" : ""}
         </span>
-        <span className="text-xs text-muted-foreground">{kpi.deltaLabel}</span>
+        <span className="text-xs" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+          {kpi.deltaLabel}
+        </span>
       </div>
     </motion.div>
   );
 }
 
-function ProcessStatusRow({ node, index, onClick }: { node: ProcessNode; index: number; onClick: () => void }) {
-  const statusColors = {
-    optimal: { bg: "oklch(0.92 0.06 155)", text: "oklch(0.42 0.14 155)", dot: "oklch(0.62 0.14 155)" },
-    warning: { bg: "oklch(0.94 0.07 75)", text: "oklch(0.45 0.15 75)", dot: "oklch(0.72 0.16 75)" },
-    critical: { bg: "oklch(0.95 0.06 15)", text: "oklch(0.50 0.18 15)", dot: "oklch(0.60 0.20 15)" },
-    opportunity: { bg: "oklch(0.92 0.06 193.7)", text: "oklch(0.35 0.10 193.7)", dot: "oklch(0.38 0.153 193.7)" },
+function StatusChip({ status }: { status: ProcessNode["status"] }) {
+  const map = {
+    optimal: { bg: C.greenBg, color: C.green, label: "Healthy" },
+    warning: { bg: C.amberLight, color: C.amberText, label: "Warning" },
+    critical: { bg: C.errorContainer, color: C.errorContainerText, label: "Critical" },
+    opportunity: { bg: "#e0f2fe", color: "#0369a1", label: "Opportunity" },
   };
-  const colors = statusColors[node.status];
+  const s = map[status];
+  return (
+    <span
+      className="text-xs font-bold px-2 py-0.5 rounded"
+      style={{ background: s.bg, color: s.color, fontFamily: "'Inter', sans-serif" }}
+    >
+      {s.label}
+    </span>
+  );
+}
 
+function ProcessRow({ node, index, onClick }: { node: ProcessNode; index: number; onClick: () => void }) {
   return (
     <motion.tr
       initial={{ opacity: 0, x: -8 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.04 }}
       onClick={onClick}
-      className="group cursor-pointer hover:bg-muted/40 transition-colors"
+      className="group cursor-pointer transition-colors border-b"
+      style={{ borderColor: C.outlineVariant }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = "rgba(118,214,213,0.05)"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = "transparent"; }}
     >
       <td className="py-3 px-4">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2 h-2 rounded-full" style={{ background: colors.dot }} />
-          <span className="text-sm font-medium">{node.name}</span>
-        </div>
-      </td>
-      <td className="py-3 px-4">
-        <span className="text-xs text-muted-foreground">{node.department}</span>
-      </td>
-      <td className="py-3 px-4">
-        <span
-          className="text-xs font-medium px-2 py-0.5 rounded-full"
-          style={{ background: colors.bg, color: colors.text }}
-        >
-          {node.status.charAt(0).toUpperCase() + node.status.slice(1)}
+        <span className="text-sm font-medium" style={{ color: C.onSurface, fontFamily: "'Inter', sans-serif" }}>
+          {node.name}
         </span>
       </td>
       <td className="py-3 px-4">
-        <span className="text-sm font-mono">${(node.cost / 1000).toFixed(0)}K</span>
+        <span className="text-xs" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+          {node.department}
+        </span>
       </td>
-      <td className="py-3 px-4">
-        <div className="flex items-center gap-2">
-          <Progress value={node.automationRate} className="w-16 h-1.5" />
-          <span className="text-xs text-muted-foreground">{node.automationRate}%</span>
-        </div>
+      <td className="py-3 px-4 text-right">
+        <span className="text-sm" style={{ color: C.onSurface, fontFamily: "'Inter', sans-serif" }}>
+          {node.cycleTime}d
+        </span>
       </td>
-      <td className="py-3 px-4">
-        <span className="text-xs text-muted-foreground">{node.cycleTime}d</span>
+      <td className="py-3 px-4 text-right">
+        <span className="text-sm font-medium" style={{ fontFamily: "'DM Mono', 'JetBrains Mono', monospace", color: C.onSurface }}>
+          ${(node.cost / 1000).toFixed(0)}K
+        </span>
       </td>
-      <td className="py-3 px-4">
-        <ArrowRight size={14} className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+      <td className="py-3 px-4 text-center">
+        <StatusChip status={node.status} />
+      </td>
+      <td className="py-3 px-4 text-center">
+        <ArrowRight
+          size={16}
+          className="mx-auto opacity-0 group-hover:opacity-100 transition-opacity"
+          style={{ color: C.onSurfaceVariant }}
+        />
       </td>
     </motion.tr>
   );
@@ -143,33 +203,51 @@ export default function DashboardPage() {
   const totalCost = processNodes.reduce((sum, n) => sum + n.cost, 0);
 
   return (
-    <div className="p-6 space-y-6 page-enter">
+    <div className="p-6 space-y-6 page-enter" style={{ maxWidth: "1440px", margin: "0 auto" }}>
       {/* Page header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          <h1 className="text-headline-lg" style={{ color: C.onSurface }}>
             Organizational Overview
           </h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="text-body-sm mt-1" style={{ color: C.onSurfaceVariant }}>
             6 data sources · 284,100+ records · Last synced 4 minutes ago
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 flex-wrap">
           {criticalCount > 0 && (
-            <Badge variant="destructive" className="gap-1">
-              <AlertTriangle size={11} /> {criticalCount} Critical
-            </Badge>
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-label-md border"
+              style={{
+                background: C.errorContainer,
+                color: C.errorContainerText,
+                borderColor: `${C.error}33`,
+              }}
+            >
+              <AlertTriangle size={13} />
+              {criticalCount} Critical
+            </div>
           )}
           {opportunityCount > 0 && (
-            <span className="opportunity-badge">
-              <span className="opportunity-dot" />
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-label-md border"
+              style={{
+                background: C.amberLight,
+                color: C.amberText,
+                borderColor: `${C.amber}33`,
+              }}
+            >
+              <Lightbulb size={13} />
               {opportunityCount} Opportunities
-            </span>
+            </div>
           )}
-          <Button variant="outline" size="sm" className="gap-1.5" asChild>
-            <Link href="/report">
-              <Target size={13} /> Generate Report
-            </Link>
+          <Button
+            size="sm"
+            className="ml-2"
+            style={{ background: C.primary, color: "#ffffff", fontFamily: "'Inter', sans-serif" }}
+            asChild
+          >
+            <Link href="/report">Generate Report</Link>
           </Button>
         </div>
       </div>
@@ -182,100 +260,167 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Process Efficiency Trend */}
-        <div className="col-span-2 bg-card rounded-lg border border-border p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>Process Efficiency — Baseline vs. Goal</h3>
-              <p className="text-xs text-muted-foreground">Current trajectory toward 85% target</p>
-            </div>
-            <div className="flex items-center gap-4 text-xs">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-0.5 rounded" style={{ background: "oklch(0.38 0.153 193.7)" }} />
-                <span className="text-muted-foreground">Current</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-0.5 rounded border-dashed border" style={{ borderColor: "oklch(0.72 0.16 75)" }} />
-                <span className="text-muted-foreground">Goal</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-0.5 rounded" style={{ background: "oklch(0.75 0.01 240)" }} />
-                <span className="text-muted-foreground">Baseline</span>
-              </div>
-            </div>
+        <div
+          className="rounded-lg border flex flex-col"
+          style={{ background: C.surfaceLowest, borderColor: C.outlineVariant, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
+        >
+          <div
+            className="p-4 flex items-center justify-between"
+            style={{ borderBottom: `1px solid ${C.outlineVariant}` }}
+          >
+            <h3 className="text-headline-sm" style={{ color: C.onSurface }}>
+              Process Efficiency — Baseline vs. Goal
+            </h3>
+            <button style={{ color: C.onSurfaceVariant }}>
+              <MoreVertical size={16} />
+            </button>
           </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <AreaChart data={trendData.processEfficiency} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-              <defs>
-                <linearGradient id="gapGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="oklch(0.72 0.16 75)" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="oklch(0.72 0.16 75)" stopOpacity={0.02} />
-                </linearGradient>
-                <linearGradient id="currentGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.02} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.004 240)" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: "oklch(0.55 0.01 240)" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "oklch(0.55 0.01 240)" }} axisLine={false} tickLine={false} domain={[55, 95]} />
-              <Tooltip
-                contentStyle={{ background: "white", border: "1px solid oklch(0.90 0.005 240)", borderRadius: "8px", fontSize: "12px" }}
-                formatter={(value: unknown) => { const v = value as number | null; return v !== null ? [`${v}%`, ""] : ["—", ""]; }}
-              />
-              <Area type="monotone" dataKey="goal" stroke="oklch(0.72 0.16 75)" strokeWidth={1.5} strokeDasharray="4 3" fill="url(#gapGradient)" dot={false} />
-              <Area type="monotone" dataKey="current" stroke="oklch(0.38 0.153 193.7)" strokeWidth={2} fill="url(#currentGradient)" dot={{ r: 3, fill: "oklch(0.38 0.153 193.7)", strokeWidth: 0 }} connectNulls={false} />
-              <Line type="monotone" dataKey="baseline" stroke="oklch(0.75 0.01 240)" strokeWidth={1} dot={false} strokeDasharray="2 2" />
-            </AreaChart>
-          </ResponsiveContainer>
+          <div className="p-4 flex-1">
+            <div className="flex items-center gap-4 mb-3 text-xs" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-0.5 rounded" style={{ background: C.primary }} />
+                <span style={{ color: C.onSurfaceVariant }}>Current</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-0.5 rounded" style={{ background: C.amber }} />
+                <span style={{ color: C.onSurfaceVariant }}>Goal</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-0.5 border-t-2 border-dashed" style={{ borderColor: C.outline }} />
+                <span style={{ color: C.onSurfaceVariant }}>Baseline</span>
+              </div>
+            </div>
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart data={trendData.processEfficiency} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="goalGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.amber} stopOpacity={0.1} />
+                    <stop offset="95%" stopColor={C.amber} stopOpacity={0.01} />
+                  </linearGradient>
+                  <linearGradient id="currentGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.primary} stopOpacity={0.15} />
+                    <stop offset="95%" stopColor={C.primary} stopOpacity={0.01} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.outlineVariant} opacity={0.5} />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: C.onSurfaceVariant }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: C.onSurfaceVariant }} axisLine={false} tickLine={false} domain={[55, 95]} />
+                <Tooltip
+                  contentStyle={{ background: "white", border: `1px solid ${C.outlineVariant}`, borderRadius: "8px", fontSize: "12px" }}
+                  formatter={(value: unknown) => {
+                    const v = value as number | null;
+                    return v !== null ? [`${v}%`, ""] : ["—", ""];
+                  }}
+                />
+                <Area type="monotone" dataKey="goal" stroke={C.amber} strokeWidth={2} fill="url(#goalGrad)" dot={false} />
+                <Area type="monotone" dataKey="current" stroke={C.primary} strokeWidth={2.5} fill="url(#currentGrad)" dot={{ r: 3, fill: C.primary, strokeWidth: 0 }} connectNulls={false} />
+                <Line type="monotone" dataKey="baseline" stroke={C.outline} strokeWidth={1.5} dot={false} strokeDasharray="4 3" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        {/* Department Cost Breakdown */}
-        <div className="bg-card rounded-lg border border-border p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>Cost by Department</h3>
-            <p className="text-xs text-muted-foreground">Total: ${(totalCost / 1000).toFixed(0)}K / month</p>
+        {/* Cost by Department */}
+        <div
+          className="rounded-lg border flex flex-col"
+          style={{ background: C.surfaceLowest, borderColor: C.outlineVariant, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
+        >
+          <div
+            className="p-4 flex items-center justify-between"
+            style={{ borderBottom: `1px solid ${C.outlineVariant}` }}
+          >
+            <div>
+              <h3 className="text-headline-sm" style={{ color: C.onSurface }}>Cost by Department</h3>
+              <p className="text-body-sm mt-0.5" style={{ color: C.onSurfaceVariant }}>
+                Total: ${(totalCost / 1000).toFixed(0)}K / month
+              </p>
+            </div>
+            <button style={{ color: C.onSurfaceVariant }}>
+              <MoreVertical size={16} />
+            </button>
           </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={trendData.departmentCosts} layout="vertical" margin={{ top: 0, right: 10, left: 0, bottom: 0 }}>
-              <XAxis type="number" tick={{ fontSize: 10, fill: "oklch(0.55 0.01 240)" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}M`} />
-              <YAxis type="category" dataKey="dept" tick={{ fontSize: 11, fill: "oklch(0.35 0.01 240)" }} axisLine={false} tickLine={false} width={72} />
-              <Tooltip
-                contentStyle={{ background: "white", border: "1px solid oklch(0.90 0.005 240)", borderRadius: "8px", fontSize: "12px" }}
-                formatter={(value: number) => [`$${value}M`, "Cost"]}
-              />
-              <Bar dataKey="cost" fill="oklch(0.38 0.153 193.7)" radius={[0, 3, 3, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="p-4 flex-1 flex flex-col justify-around gap-3">
+            {trendData.departmentCosts.map((dept, i) => (
+              <div key={dept.dept} className="flex items-center gap-3">
+                <div className="w-24 text-right text-xs truncate" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+                  {dept.dept}
+                </div>
+                <div className="flex-1 h-6 rounded overflow-hidden flex" style={{ background: C.surfaceHigh }}>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(dept.cost / 1.4) * 100}%` }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                    className="h-full rounded-l"
+                    style={{ background: C.primary, maxWidth: "70%" }}
+                  />
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(dept.cost / 1.4) * 25}%` }}
+                    transition={{ delay: 0.2 + i * 0.05, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                    className="h-full"
+                    style={{ background: C.teal, maxWidth: "20%" }}
+                  />
+                </div>
+                <div className="w-14 text-right text-xs font-semibold" style={{ color: C.onSurface, fontFamily: "'DM Mono', monospace" }}>
+                  ${dept.cost}M
+                </div>
+              </div>
+            ))}
+            <div className="flex justify-center gap-6 mt-1 text-xs" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-sm" style={{ background: C.primary }} />
+                Fixed Costs
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-sm" style={{ background: C.teal }} />
+                Variable Costs
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Process Table */}
-      <div className="bg-card rounded-lg border border-border">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-          <div>
-            <h3 className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>End-to-End Process Map</h3>
-            <p className="text-xs text-muted-foreground">{processNodes.length} processes · Click any row to drill down</p>
-          </div>
-          <Button variant="ghost" size="sm" className="gap-1.5 text-xs" asChild>
-            <Link href="/process">
-              View full map <ArrowRight size={12} />
-            </Link>
-          </Button>
+      <div
+        className="rounded-lg border overflow-hidden"
+        style={{ background: C.surfaceLowest, borderColor: C.outlineVariant, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
+      >
+        <div
+          className="flex items-center justify-between px-4 py-4"
+          style={{ borderBottom: `1px solid ${C.outlineVariant}`, background: C.surfaceLowest }}
+        >
+          <h3 className="text-headline-sm" style={{ color: C.onSurface }}>End-to-End Process Map</h3>
+          <Link href="/process">
+            <button
+              className="flex items-center gap-1 text-xs font-medium transition-colors"
+              style={{ color: C.teal, fontFamily: "'Inter', sans-serif" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = C.primary; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = C.teal; }}
+            >
+              View full map <ArrowRight size={14} />
+            </button>
+          </Link>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-border">
-                {["Process", "Department", "Status", "Monthly Cost", "Automation", "Cycle Time", ""].map((h) => (
-                  <th key={h} className="py-2.5 px-4 text-left section-label">{h}</th>
+              <tr style={{ background: C.surfaceLow, borderBottom: `1px solid ${C.outlineVariant}` }}>
+                {["Process Name", "Department", "Lead Time", "Cost (Annual)", "Health", ""].map((h) => (
+                  <th
+                    key={h}
+                    className="py-3 px-4 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {h}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {processNodes.map((node, i) => (
-                <ProcessStatusRow
+                <ProcessRow
                   key={node.id}
                   node={node}
                   index={i}
@@ -288,44 +433,69 @@ export default function DashboardPage() {
       </div>
 
       {/* Top Opportunities Preview */}
-      <div className="bg-card rounded-lg border border-border p-5">
+      <div
+        className="rounded-lg border p-5"
+        style={{ background: C.surfaceLowest, borderColor: C.outlineVariant, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
+      >
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>Top Opportunities</h3>
-            <p className="text-xs text-muted-foreground">Ranked by impact-to-effort ratio</p>
+            <h3 className="text-headline-sm" style={{ color: C.onSurface }}>Top Opportunities</h3>
+            <p className="text-body-sm mt-0.5" style={{ color: C.onSurfaceVariant }}>Ranked by impact-to-effort ratio</p>
           </div>
-          <Button variant="ghost" size="sm" className="gap-1.5 text-xs" asChild>
-            <Link href="/opportunities">
-              View all <ArrowRight size={12} />
-            </Link>
-          </Button>
+          <Link href="/opportunities">
+            <button
+              className="flex items-center gap-1 text-xs font-medium"
+              style={{ color: C.teal, fontFamily: "'Inter', sans-serif" }}
+            >
+              View all <ArrowRight size={14} />
+            </button>
+          </Link>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {opportunities.slice(0, 3).map((opp, i) => (
             <motion.div
               key={opp.id}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.06 }}
+              transition={{ delay: 0.1 + i * 0.07, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
               className="p-4 rounded-lg border"
-              style={{ borderColor: "oklch(0.90 0.005 240)", borderLeftWidth: "3px", borderLeftColor: "oklch(0.72 0.16 75)" }}
+              style={{
+                borderColor: C.outlineVariant,
+                borderLeftWidth: "4px",
+                borderLeftColor: C.amber,
+                background: C.surfaceLowest,
+              }}
             >
               <div className="flex items-start justify-between mb-2">
-                <span className="opportunity-badge">{opp.type}</span>
                 <span
-                  className="text-xs font-semibold"
-                  style={{ color: opp.impact === "high" ? "oklch(0.60 0.20 15)" : opp.impact === "medium" ? "oklch(0.72 0.16 75)" : "oklch(0.62 0.14 155)" }}
+                  className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                  style={{ background: C.amberLight, color: C.amberText, fontFamily: "'Inter', sans-serif" }}
                 >
-                  {opp.impact.toUpperCase()}
+                  {opp.type}
+                </span>
+                <span
+                  className="text-xs font-bold uppercase"
+                  style={{
+                    color: opp.impact === "high" ? C.error : opp.impact === "medium" ? C.amberText : C.green,
+                    fontFamily: "'Inter', sans-serif",
+                  }}
+                >
+                  {opp.impact}
                 </span>
               </div>
-              <h4 className="text-sm font-semibold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>{opp.title}</h4>
-              <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{opp.description}</p>
+              <h4 className="text-sm font-semibold mb-1" style={{ color: C.onSurface, fontFamily: "'DM Sans', sans-serif" }}>
+                {opp.title}
+              </h4>
+              <p className="text-xs mb-3 line-clamp-2" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+                {opp.description}
+              </p>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-medium" style={{ color: "oklch(0.38 0.153 193.7)" }}>
+                <span className="text-xs font-semibold" style={{ color: C.primary, fontFamily: "'DM Mono', monospace" }}>
                   +${(opp.estimatedSaving / 1000).toFixed(0)}K/yr
                 </span>
-                <span className="text-xs text-muted-foreground">{opp.estimatedTimeToValue}</span>
+                <span className="text-xs" style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}>
+                  {opp.estimatedTimeToValue}
+                </span>
               </div>
             </motion.div>
           ))}
@@ -338,56 +508,60 @@ export default function DashboardPage() {
           {selectedKPI && (
             <div className="space-y-6">
               <SheetHeader>
-                <SheetTitle style={{ fontFamily: "'DM Sans', sans-serif" }}>{selectedKPI.label}</SheetTitle>
-                <p className="text-sm text-muted-foreground">{selectedKPI.category} · Detailed breakdown</p>
+                <SheetTitle className="text-headline-sm" style={{ color: C.onSurface }}>
+                  {selectedKPI.label}
+                </SheetTitle>
               </SheetHeader>
-
-              <div className="p-5 rounded-lg" style={{ background: "oklch(0.91 0.046 193.7)" }}>
-                <p className="section-label mb-1">Current Value</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="kpi-value-lg">{selectedKPI.value}</span>
-                  {selectedKPI.unit && <span className="text-muted-foreground">{selectedKPI.unit}</span>}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg" style={{ background: C.surfaceLow }}>
+                  <p className="text-xs mb-1" style={{ color: C.onSurfaceVariant }}>Current Value</p>
+                  <p className="kpi-value-lg">{selectedKPI.value}{selectedKPI.unit}</p>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">{selectedKPI.deltaLabel}</p>
+                <div className="p-4 rounded-lg" style={{ background: C.surfaceLow }}>
+                  <p className="text-xs mb-1" style={{ color: C.onSurfaceVariant }}>Target</p>
+                  <p className="kpi-value-lg">{selectedKPI.target ?? "—"}{selectedKPI.target ? selectedKPI.unit : ""}</p>
+                </div>
               </div>
-
+              {selectedKPI.target && (() => {
+                const current = parseFloat(String(selectedKPI.value).replace(/[^0-9.]/g, ""));
+                const target = parseFloat(String(selectedKPI.target).replace(/[^0-9.]/g, ""));
+                const pct = isNaN(current) || isNaN(target) || target === 0 ? 0 : Math.min(100, Math.round((current / target) * 100));
+                return (
+                  <div>
+                    <div className="flex justify-between text-xs mb-2" style={{ color: C.onSurfaceVariant }}>
+                      <span>Progress to target</span>
+                      <span>{pct}%</span>
+                    </div>
+                    <Progress value={pct} className="h-2" />
+                  </div>
+                );
+              })()}
               <div>
-                <h4 className="text-sm font-semibold mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>6-Month Trend</h4>
-                <ResponsiveContainer width="100%" height={160}>
-                  <AreaChart data={trendData.costTrend} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                <h4 className="text-sm font-semibold mb-3" style={{ color: C.onSurface }}>Trend (12 months)</h4>
+                <ResponsiveContainer width="100%" height={140}>
+                  <AreaChart data={trendData.processEfficiency}>
                     <defs>
-                      <linearGradient id="drillGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.02} />
+                      <linearGradient id="kpiGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor={C.primary} stopOpacity={0.15} />
+                        <stop offset="95%" stopColor={C.primary} stopOpacity={0.01} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.004 240)" />
-                    <XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-                    <Tooltip contentStyle={{ fontSize: "12px", borderRadius: "8px" }} />
-                    <Area type="monotone" dataKey="value" stroke="oklch(0.38 0.153 193.7)" strokeWidth={2} fill="url(#drillGrad)" dot={{ r: 3, fill: "oklch(0.38 0.153 193.7)", strokeWidth: 0 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={C.outlineVariant} opacity={0.5} />
+                    <XAxis dataKey="month" tick={{ fontSize: 10, fill: C.onSurfaceVariant }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fontSize: 10, fill: C.onSurfaceVariant }} axisLine={false} tickLine={false} />
+                    <Tooltip contentStyle={{ fontSize: "11px", borderRadius: "6px" }} />
+                    <Area type="monotone" dataKey="current" stroke={C.primary} strokeWidth={2} fill="url(#kpiGrad)" dot={false} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
-
-              <div>
-                <h4 className="text-sm font-semibold mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>Related Opportunities</h4>
-                {opportunities.slice(0, 2).map((opp) => (
-                  <div key={opp.id} className="p-3 rounded-lg border border-border mb-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">{opp.title}</span>
-                      <span className="text-xs font-mono" style={{ color: "oklch(0.38 0.153 193.7)" }}>+${(opp.estimatedSaving / 1000).toFixed(0)}K</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{opp.estimatedTimeToValue}</p>
-                  </div>
-                ))}
-              </div>
-
-              <Button className="w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
-                <Link href="/opportunities">
-                  View All Opportunities <ArrowRight size={14} />
-                </Link>
-              </Button>
+              {selectedKPI.insight && (
+                <div>
+                  <h4 className="text-sm font-semibold mb-2" style={{ color: C.onSurface }}>Insights</h4>
+                  <p className="text-sm" style={{ color: C.onSurfaceVariant }}>
+                    {selectedKPI.insight}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </SheetContent>
@@ -397,70 +571,47 @@ export default function DashboardPage() {
       <Sheet open={!!selectedProcess} onOpenChange={() => setSelectedProcess(null)}>
         <SheetContent className="w-[480px] overflow-y-auto">
           {selectedProcess && (
-            <div className="space-y-5">
+            <div className="space-y-6">
               <SheetHeader>
-                <div className="flex items-center gap-2">
-                  <SheetTitle style={{ fontFamily: "'DM Sans', sans-serif" }}>{selectedProcess.name}</SheetTitle>
-                  <span
-                    className="text-xs font-medium px-2 py-0.5 rounded-full"
-                    style={{
-                      background: selectedProcess.status === "optimal" ? "oklch(0.92 0.06 155)" : selectedProcess.status === "critical" ? "oklch(0.95 0.06 15)" : selectedProcess.status === "opportunity" ? "oklch(0.92 0.06 193.7)" : "oklch(0.94 0.07 75)",
-                      color: selectedProcess.status === "optimal" ? "oklch(0.42 0.14 155)" : selectedProcess.status === "critical" ? "oklch(0.50 0.18 15)" : selectedProcess.status === "opportunity" ? "oklch(0.35 0.10 193.7)" : "oklch(0.45 0.15 75)",
-                    }}
-                  >
-                    {selectedProcess.status}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground">{selectedProcess.department} · {selectedProcess.description}</p>
+                <SheetTitle className="text-headline-sm" style={{ color: C.onSurface }}>
+                  {selectedProcess.name}
+                </SheetTitle>
               </SheetHeader>
-
-              <div className="grid grid-cols-2 gap-3">
+              <div className="flex items-center gap-2">
+                <StatusChip status={selectedProcess.status} />
+                <span className="text-xs" style={{ color: C.onSurfaceVariant }}>{selectedProcess.department}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: "Monthly Cost", value: `$${(selectedProcess.cost / 1000).toFixed(0)}K`, icon: DollarSign },
-                  { label: "Headcount", value: `${selectedProcess.headcount} FTE`, icon: Users },
-                  { label: "Cycle Time", value: `${selectedProcess.cycleTime} days`, icon: Clock },
-                  { label: "Automation", value: `${selectedProcess.automationRate}%`, icon: Zap },
-                ].map((stat) => (
-                  <div key={stat.label} className="p-3 rounded-lg bg-muted/50">
-                    <p className="section-label mb-1">{stat.label}</p>
-                    <p className="text-lg font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{stat.value}</p>
+                  { label: "Monthly Cost", value: `$${(selectedProcess.cost / 1000).toFixed(0)}K` },
+                  { label: "Cycle Time", value: `${selectedProcess.cycleTime}d` },
+                  { label: "Automation", value: `${selectedProcess.automationRate}%` },
+                ].map(m => (
+                  <div key={m.label} className="p-3 rounded-lg text-center" style={{ background: C.surfaceLow }}>
+                    <p className="text-xs mb-1" style={{ color: C.onSurfaceVariant }}>{m.label}</p>
+                    <p className="kpi-value">{m.value}</p>
                   </div>
                 ))}
               </div>
-
               <div>
-                <h4 className="text-sm font-semibold mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Automation Coverage</h4>
-                <div className="flex items-center gap-3">
-                  <Progress value={selectedProcess.automationRate} className="flex-1 h-2" />
-                  <span className="text-sm font-mono">{selectedProcess.automationRate}%</span>
+                <div className="flex justify-between text-xs mb-2" style={{ color: C.onSurfaceVariant }}>
+                  <span>Automation Coverage</span>
+                  <span>{selectedProcess.automationRate}%</span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {selectedProcess.automationRate < 40 ? "Below average — automation opportunity identified" : selectedProcess.automationRate < 70 ? "Moderate — room for improvement" : "Well automated"}
-                </p>
+                <Progress value={selectedProcess.automationRate} className="h-2" />
               </div>
-
-              {selectedProcess.status !== "optimal" && (
-                <div className="p-4 rounded-lg" style={{ background: "oklch(0.94 0.07 75 / 0.3)", borderLeft: "3px solid oklch(0.72 0.16 75)" }}>
-                  <div className="flex items-start gap-2">
-                    <Info size={14} style={{ color: "oklch(0.55 0.15 75)" }} className="mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm font-medium" style={{ color: "oklch(0.40 0.12 75)" }}>Action Required</p>
-                      <p className="text-xs mt-0.5" style={{ color: "oklch(0.50 0.10 75)" }}>
-                        {selectedProcess.status === "critical"
-                          ? "This process is a critical bottleneck. Immediate redesign recommended."
-                          : selectedProcess.status === "opportunity"
-                          ? "Automation opportunity identified. See Opportunities page for details."
-                          : "Performance below target. Review staffing and tooling."}
-                      </p>
-                    </div>
-                  </div>
+              {selectedProcess.recommendation && (
+                <div>
+                  <h4 className="text-sm font-semibold mb-2" style={{ color: C.onSurface }}>Recommended Action</h4>
+                  <p className="text-sm" style={{ color: C.onSurfaceVariant }}>{selectedProcess.recommendation}</p>
                 </div>
               )}
-
-              <Button className="w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
-                <Link href="/process">
-                  View Full Process Map <ArrowRight size={14} />
-                </Link>
+              <Button
+                className="w-full"
+                style={{ background: C.primary, color: "#ffffff" }}
+                asChild
+              >
+                <Link href="/opportunities">View Related Opportunities</Link>
               </Button>
             </div>
           )}

@@ -1,7 +1,7 @@
 /**
- * AppLayout — VantageIQ Design System
- * Corporate Modernism: Dark teal sidebar + white content canvas
- * Persistent sidebar with icon+label nav, collapsible on mobile
+ * AppLayout — VantageIQ Stitch MD3 Design System
+ * Sidebar: #002e2d (primary-container), active: border-l-4 teal, amber badges
+ * Topbar: surface-container-lowest, breadcrumb, sync/search/bell/avatar
  */
 
 import { useState } from "react";
@@ -24,7 +24,6 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,6 +45,24 @@ const navItems = [
 const bottomItems = [
   { path: "/settings", label: "Settings", icon: Settings },
 ];
+
+// Stitch color tokens
+const C = {
+  sidebar: "#002e2d",
+  sidebarBorder: "rgba(255,255,255,0.08)",
+  sidebarText: "#a5cecc",
+  sidebarTextMuted: "rgba(165,206,204,0.6)",
+  sidebarActive: "rgba(255,255,255,0.12)",
+  sidebarHover: "rgba(255,255,255,0.07)",
+  sidebarActiveBorder: "#76d6d5",
+  amber: "#feae2c",
+  amberText: "#6b4500",
+  onSurface: "#0b1c30",
+  onSurfaceVariant: "#414848",
+  outlineVariant: "#c0c8c7",
+  surfaceLowest: "#ffffff",
+  primaryBtn: "#001717",
+};
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -70,37 +87,29 @@ export default function AppLayout({ children }: AppLayoutProps) {
     navigate("/login");
   };
 
+  const currentPage = navItems.find(n => location === n.path || (n.path !== "/" && location.startsWith(n.path)));
+
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      {/* Sidebar */}
+    <div className="flex h-screen overflow-hidden" style={{ background: "#f8f9ff" }}>
+      {/* ── Sidebar ── */}
       <motion.aside
-        animate={{ width: collapsed ? 64 : 232 }}
+        animate={{ width: collapsed ? 64 : 240 }}
         transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-        className="flex flex-col h-full overflow-hidden flex-shrink-0"
-        style={{ background: "oklch(0.162 0.1530 193.7)" }}
+        className="flex flex-col h-full overflow-hidden flex-shrink-0 shadow-none"
+        style={{ background: C.sidebar }}
       >
         {/* Logo */}
-        <div className="flex items-center h-16 px-4 border-b" style={{ borderColor: "oklch(0.28 0.153 193.7)" }}>
-          <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
+        <div
+          className="flex items-center h-16 px-4 flex-shrink-0"
+          style={{ borderBottom: `1px solid ${C.sidebarBorder}` }}
+        >
+          <Link href="/dashboard" className="flex items-center gap-2 min-w-0 overflow-hidden">
             <img
               src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
               alt="VantageIQ"
-              className="w-32 flex-shrink-0 object-contain"
+              className="flex-shrink-0 object-contain"
+              style={{ height: "28px", width: collapsed ? "28px" : "auto", maxWidth: collapsed ? "28px" : "160px", objectPosition: "left" }}
             />
-            <AnimatePresence>
-              {!collapsed && (
-                <motion.span
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: "auto" }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="font-bold text-lg tracking-tight overflow-hidden whitespace-nowrap sr-only"
-                  style={{ color: "oklch(0.95 0.02 193.7)", fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  VantageIQ
-                </motion.span>
-              )}
-            </AnimatePresence>
           </Link>
         </div>
 
@@ -108,21 +117,27 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <AnimatePresence>
           {!collapsed && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="px-4 py-3 border-b"
-              style={{ borderColor: "oklch(0.28 0.153 193.7)" }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="px-4 py-3 overflow-hidden"
+              style={{ borderBottom: `1px solid ${C.sidebarBorder}` }}
             >
-              <p className="text-xs font-medium mb-0.5" style={{ color: "oklch(0.62 0.04 193.7)" }}>Organization</p>
-              <p className="text-sm font-semibold truncate" style={{ color: "oklch(0.92 0.02 193.7)", fontFamily: "'DM Sans', sans-serif" }}>Acme Consulting Group</p>
-              <p className="text-xs mt-0.5" style={{ color: "oklch(0.55 0.04 193.7)" }}>6 sources · synced 4m ago</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: C.sidebarTextMuted, fontFamily: "'Inter', sans-serif" }}>
+                Organization
+              </p>
+              <p className="text-sm font-semibold truncate" style={{ color: "#ffffff", fontFamily: "'DM Sans', sans-serif" }}>
+                Acme Consulting Group
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: C.sidebarTextMuted, fontFamily: "'Inter', sans-serif" }}>
+                6 sources · synced 4m ago
+              </p>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Nav Items */}
-        <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
+        <nav className="flex-1 py-2 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = location === item.path || (item.path !== "/" && location.startsWith(item.path));
             const Icon = item.icon;
@@ -132,41 +147,40 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 <TooltipTrigger asChild>
                   <Link href={item.path}>
                     <motion.div
-                      whileHover={{ x: collapsed ? 0 : 2 }}
                       whileTap={{ scale: 0.97 }}
-                      className="flex items-center gap-3 px-2.5 py-2.5 rounded-md transition-colors relative group"
+                      className="flex items-center gap-3 py-2.5 transition-colors relative"
                       style={{
-                        background: isActive ? "oklch(0.38 0.153 193.7)" : "transparent",
-                        color: isActive ? "oklch(0.97 0.01 193.7)" : "oklch(0.72 0.04 193.7)",
+                        paddingLeft: collapsed ? "20px" : "24px",
+                        paddingRight: collapsed ? "20px" : "16px",
+                        background: isActive ? C.sidebarActive : "transparent",
+                        color: isActive ? "#ffffff" : C.sidebarText,
+                        borderLeft: isActive ? `4px solid ${C.sidebarActiveBorder}` : "4px solid transparent",
                       }}
                       onMouseEnter={(e) => {
                         if (!isActive) {
-                          (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 193.7)";
-                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 193.7)";
+                          (e.currentTarget as HTMLDivElement).style.background = C.sidebarHover;
+                          (e.currentTarget as HTMLDivElement).style.color = "#ffffff";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isActive) {
                           (e.currentTarget as HTMLDivElement).style.background = "transparent";
-                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.72 0.04 193.7)";
+                          (e.currentTarget as HTMLDivElement).style.color = C.sidebarText;
                         }
                       }}
                     >
-                      {isActive && (
-                        <div
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r"
-                          style={{ background: "oklch(0.72 0.16 75)" }}
-                        />
-                      )}
-                      <Icon size={18} className="flex-shrink-0" />
+                      <Icon size={20} className="flex-shrink-0" />
                       <AnimatePresence>
                         {!collapsed && (
                           <motion.span
                             initial={{ opacity: 0, width: 0 }}
                             animate={{ opacity: 1, width: "auto" }}
                             exit={{ opacity: 0, width: 0 }}
-                            className="text-sm font-medium overflow-hidden whitespace-nowrap flex-1"
-                            style={{ fontFamily: "'DM Sans', sans-serif" }}
+                            className="text-sm whitespace-nowrap flex-1"
+                            style={{
+                              fontFamily: "'Inter', sans-serif",
+                              fontWeight: isActive ? 600 : 400,
+                            }}
                           >
                             {item.label}
                           </motion.span>
@@ -174,8 +188,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
                       </AnimatePresence>
                       {!collapsed && item.badge && (
                         <span
-                          className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-                          style={{ background: "oklch(0.72 0.16 75)", color: "oklch(0.20 0.05 75)" }}
+                          className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                          style={{ background: C.amber, color: C.amberText }}
                         >
                           {item.badge}
                         </span>
@@ -186,7 +200,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 {collapsed && (
                   <TooltipContent side="right" className="ml-2">
                     {item.label}
-                    {item.badge && <span className="ml-1.5 text-amber-500">({item.badge})</span>}
+                    {item.badge && <span className="ml-1.5" style={{ color: C.amber }}>({item.badge})</span>}
                   </TooltipContent>
                 )}
               </Tooltip>
@@ -195,7 +209,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </nav>
 
         {/* Bottom Nav */}
-        <div className="py-3 px-2 border-t space-y-0.5" style={{ borderColor: "oklch(0.28 0.153 193.7)" }}>
+        <div className="py-2" style={{ borderTop: `1px solid ${C.sidebarBorder}` }}>
           {bottomItems.map((item) => {
             const isActive = location === item.path;
             const Icon = item.icon;
@@ -204,21 +218,36 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 <TooltipTrigger asChild>
                   <Link href={item.path}>
                     <div
-                      className="flex items-center gap-3 px-2.5 py-2.5 rounded-md transition-colors cursor-pointer"
+                      className="flex items-center gap-3 py-2.5 transition-colors"
                       style={{
-                        background: isActive ? "oklch(0.38 0.153 193.7)" : "transparent",
-                        color: isActive ? "oklch(0.97 0.01 193.7)" : "oklch(0.60 0.04 193.7)",
+                        paddingLeft: collapsed ? "20px" : "24px",
+                        paddingRight: collapsed ? "20px" : "16px",
+                        background: isActive ? C.sidebarActive : "transparent",
+                        color: isActive ? "#ffffff" : C.sidebarText,
+                        borderLeft: isActive ? `4px solid ${C.sidebarActiveBorder}` : "4px solid transparent",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          (e.currentTarget as HTMLDivElement).style.background = C.sidebarHover;
+                          (e.currentTarget as HTMLDivElement).style.color = "#ffffff";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                          (e.currentTarget as HTMLDivElement).style.color = C.sidebarText;
+                        }
                       }}
                     >
-                      <Icon size={18} className="flex-shrink-0" />
+                      <Icon size={20} className="flex-shrink-0" />
                       <AnimatePresence>
                         {!collapsed && (
                           <motion.span
                             initial={{ opacity: 0, width: 0 }}
                             animate={{ opacity: 1, width: "auto" }}
                             exit={{ opacity: 0, width: 0 }}
-                            className="text-sm font-medium overflow-hidden whitespace-nowrap"
-                            style={{ fontFamily: "'DM Sans', sans-serif" }}
+                            className="text-sm whitespace-nowrap"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {item.label}
                           </motion.span>
@@ -232,24 +261,29 @@ export default function AppLayout({ children }: AppLayoutProps) {
             );
           })}
 
-          {/* User avatar */}
+          {/* User */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div
-                className="flex items-center gap-3 px-2.5 py-2.5 rounded-md cursor-pointer transition-colors"
-                style={{ color: "oklch(0.60 0.04 193.7)" }}
+                className="flex items-center gap-3 py-2.5 cursor-pointer transition-colors"
+                style={{
+                  paddingLeft: collapsed ? "20px" : "24px",
+                  paddingRight: collapsed ? "20px" : "16px",
+                  color: C.sidebarText,
+                  borderLeft: "4px solid transparent",
+                }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 193.7)";
-                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 193.7)";
+                  (e.currentTarget as HTMLDivElement).style.background = C.sidebarHover;
+                  (e.currentTarget as HTMLDivElement).style.color = "#ffffff";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.background = "transparent";
-                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.60 0.04 193.7)";
+                  (e.currentTarget as HTMLDivElement).style.color = C.sidebarText;
                 }}
               >
                 <div
-                  className="w-[18px] h-[18px] rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
-                  style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
+                  className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
+                  style={{ background: C.amber, color: C.amberText }}
                 >
                   A
                 </div>
@@ -259,8 +293,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
                       initial={{ opacity: 0, width: 0 }}
                       animate={{ opacity: 1, width: "auto" }}
                       exit={{ opacity: 0, width: 0 }}
-                      className="text-sm font-medium overflow-hidden whitespace-nowrap"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      className="text-sm whitespace-nowrap"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
                     >
                       Alex Morgan
                     </motion.span>
@@ -282,57 +316,81 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center justify-center h-8 border-t transition-colors"
+          className="flex items-center justify-center h-8 transition-colors flex-shrink-0"
           style={{
-            borderColor: "oklch(0.28 0.153 193.7)",
-            color: "oklch(0.55 0.04 193.7)",
+            borderTop: `1px solid ${C.sidebarBorder}`,
+            color: C.sidebarTextMuted,
             background: "transparent",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "oklch(0.30 0.08 193.7)"; }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = C.sidebarHover; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
       </motion.aside>
 
-      {/* Main Content */}
+      {/* ── Main Content ── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Topbar */}
-        <header className="h-16 flex items-center justify-between px-6 bg-card border-b border-border flex-shrink-0 z-10">
-          {/* Breadcrumb / Page Title */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Acme Consulting Group</span>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              {navItems.find(n => location.startsWith(n.path))?.label ?? "Overview"}
+        <header
+          className="h-16 flex items-center justify-between px-6 flex-shrink-0 z-10"
+          style={{
+            background: C.surfaceLowest,
+            borderBottom: `1px solid ${C.outlineVariant}`,
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+          }}
+        >
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2" style={{ color: C.onSurfaceVariant }}>
+            <span className="text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Acme Consulting Group
+            </span>
+            <span className="text-sm opacity-40">/</span>
+            <span
+              className="text-sm font-semibold"
+              style={{ color: C.onSurface, fontFamily: "'DM Sans', sans-serif" }}
+            >
+              {currentPage?.label ?? "Overview"}
             </span>
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <Button
               variant="ghost"
               size="sm"
-              className="gap-2 text-muted-foreground"
+              className="gap-2 text-sm"
+              style={{ color: C.onSurfaceVariant, fontFamily: "'Inter', sans-serif" }}
               onClick={handleSync}
               disabled={syncing}
             >
               <RefreshCw size={14} className={syncing ? "animate-spin" : ""} />
               {syncing ? "Syncing..." : "Sync"}
             </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground relative" onClick={() => toast.info("Search coming soon")}>
+            <Button
+              variant="ghost"
+              size="icon"
+              style={{ color: C.onSurfaceVariant }}
+              onClick={() => toast.info("Search coming soon")}
+            >
               <Search size={16} />
             </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground relative" onClick={() => toast.info("No new notifications")}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              style={{ color: C.onSurfaceVariant }}
+              onClick={() => toast.info("No new notifications")}
+            >
               <Bell size={16} />
               <span
-                className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
-                style={{ background: "oklch(0.72 0.16 75)" }}
+                className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full border-2 border-white"
+                style={{ background: "#ba1a1a" }}
               />
             </Button>
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white ml-1"
-              style={{ background: "oklch(0.38 0.153 193.7)" }}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ml-1 cursor-pointer"
+              style={{ background: C.amber, color: C.amberText }}
             >
               A
             </div>
@@ -340,12 +398,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto" style={{ background: "#f8f9ff" }}>
           <motion.div
             key={location}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
             className="h-full"
           >
             {children}
