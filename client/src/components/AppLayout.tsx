@@ -77,10 +77,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
         animate={{ width: collapsed ? 64 : 232 }}
         transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
         className="flex flex-col h-full overflow-hidden flex-shrink-0"
-        style={{ background: "oklch(0.22 0.06 195)" }}
+        style={{ background: "oklch(0.162 0.1530 193.7)" }}
       >
         {/* Logo */}
-        <div className="flex items-center h-16 px-4 border-b" style={{ borderColor: "oklch(0.32 0.06 195)" }}>
+        <div className="flex items-center h-16 px-4 border-b" style={{ borderColor: "oklch(0.28 0.153 193.7)" }}>
           <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
             <img
               src="/manus-storage/vantageiq-logo-dark_87cc60c6.svg"
@@ -95,7 +95,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                   exit={{ opacity: 0, width: 0 }}
                   transition={{ duration: 0.15 }}
                   className="font-bold text-lg tracking-tight overflow-hidden whitespace-nowrap sr-only"
-                  style={{ color: "oklch(0.95 0.02 195)", fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: "oklch(0.95 0.02 193.7)", fontFamily: "'DM Sans', sans-serif" }}
                 >
                   VantageIQ
                 </motion.span>
@@ -112,11 +112,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="px-4 py-3 border-b"
-              style={{ borderColor: "oklch(0.32 0.06 195)" }}
+              style={{ borderColor: "oklch(0.28 0.153 193.7)" }}
             >
-              <p className="text-xs font-medium mb-0.5" style={{ color: "oklch(0.65 0.04 195)" }}>Organization</p>
-              <p className="text-sm font-semibold truncate" style={{ color: "oklch(0.92 0.02 195)", fontFamily: "'DM Sans', sans-serif" }}>Acme Consulting Group</p>
-              <p className="text-xs mt-0.5" style={{ color: "oklch(0.55 0.04 195)" }}>6 sources · synced 4m ago</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: "oklch(0.62 0.04 193.7)" }}>Organization</p>
+              <p className="text-sm font-semibold truncate" style={{ color: "oklch(0.92 0.02 193.7)", fontFamily: "'DM Sans', sans-serif" }}>Acme Consulting Group</p>
+              <p className="text-xs mt-0.5" style={{ color: "oklch(0.55 0.04 193.7)" }}>6 sources · synced 4m ago</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -136,19 +136,19 @@ export default function AppLayout({ children }: AppLayoutProps) {
                       whileTap={{ scale: 0.97 }}
                       className="flex items-center gap-3 px-2.5 py-2.5 rounded-md transition-colors relative group"
                       style={{
-                        background: isActive ? "oklch(0.42 0.12 195)" : "transparent",
-                        color: isActive ? "oklch(0.97 0.01 195)" : "oklch(0.72 0.04 195)",
+                        background: isActive ? "oklch(0.38 0.153 193.7)" : "transparent",
+                        color: isActive ? "oklch(0.97 0.01 193.7)" : "oklch(0.72 0.04 193.7)",
                       }}
                       onMouseEnter={(e) => {
                         if (!isActive) {
-                          (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 195)";
-                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 195)";
+                          (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 193.7)";
+                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 193.7)";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isActive) {
                           (e.currentTarget as HTMLDivElement).style.background = "transparent";
-                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.72 0.04 195)";
+                          (e.currentTarget as HTMLDivElement).style.color = "oklch(0.72 0.04 193.7)";
                         }
                       }}
                     >
@@ -195,7 +195,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </nav>
 
         {/* Bottom Nav */}
-        <div className="py-3 px-2 border-t space-y-0.5" style={{ borderColor: "oklch(0.32 0.06 195)" }}>
+        <div className="py-3 px-2 border-t space-y-0.5" style={{ borderColor: "oklch(0.28 0.153 193.7)" }}>
           {bottomItems.map((item) => {
             const isActive = location === item.path;
             const Icon = item.icon;
@@ -206,8 +206,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
                     <div
                       className="flex items-center gap-3 px-2.5 py-2.5 rounded-md transition-colors cursor-pointer"
                       style={{
-                        background: isActive ? "oklch(0.42 0.12 195)" : "transparent",
-                        color: isActive ? "oklch(0.97 0.01 195)" : "oklch(0.60 0.04 195)",
+                        background: isActive ? "oklch(0.38 0.153 193.7)" : "transparent",
+                        color: isActive ? "oklch(0.97 0.01 193.7)" : "oklch(0.60 0.04 193.7)",
                       }}
                     >
                       <Icon size={18} className="flex-shrink-0" />
@@ -237,19 +237,19 @@ export default function AppLayout({ children }: AppLayoutProps) {
             <DropdownMenuTrigger asChild>
               <div
                 className="flex items-center gap-3 px-2.5 py-2.5 rounded-md cursor-pointer transition-colors"
-                style={{ color: "oklch(0.60 0.04 195)" }}
+                style={{ color: "oklch(0.60 0.04 193.7)" }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 195)";
-                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 195)";
+                  (e.currentTarget as HTMLDivElement).style.background = "oklch(0.30 0.08 193.7)";
+                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.90 0.02 193.7)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.background = "transparent";
-                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.60 0.04 195)";
+                  (e.currentTarget as HTMLDivElement).style.color = "oklch(0.60 0.04 193.7)";
                 }}
               >
                 <div
                   className="w-[18px] h-[18px] rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
-                  style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                  style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                 >
                   A
                 </div>
@@ -284,11 +284,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
           onClick={() => setCollapsed(!collapsed)}
           className="flex items-center justify-center h-8 border-t transition-colors"
           style={{
-            borderColor: "oklch(0.32 0.06 195)",
-            color: "oklch(0.55 0.04 195)",
+            borderColor: "oklch(0.28 0.153 193.7)",
+            color: "oklch(0.55 0.04 193.7)",
             background: "transparent",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "oklch(0.30 0.08 195)"; }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "oklch(0.30 0.08 193.7)"; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
@@ -332,7 +332,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             </Button>
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white ml-1"
-              style={{ background: "oklch(0.42 0.12 195)" }}
+              style={{ background: "oklch(0.38 0.153 193.7)" }}
             >
               A
             </div>

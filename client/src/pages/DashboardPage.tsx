@@ -50,9 +50,9 @@ function KPICard({ kpi, index, onClick }: { kpi: KPI; index: number; onClick: ()
       <div className="flex items-start justify-between mb-3">
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center"
-          style={{ background: "oklch(0.94 0.06 195)" }}
+          style={{ background: "oklch(0.91 0.046 193.7)" }}
         >
-          <Icon size={17} style={{ color: "oklch(0.42 0.12 195)" }} />
+          <Icon size={17} style={{ color: "oklch(0.38 0.153 193.7)" }} />
         </div>
         <span className="section-label">{kpi.category}</span>
       </div>
@@ -86,7 +86,7 @@ function ProcessStatusRow({ node, index, onClick }: { node: ProcessNode; index: 
     optimal: { bg: "oklch(0.92 0.06 155)", text: "oklch(0.42 0.14 155)", dot: "oklch(0.62 0.14 155)" },
     warning: { bg: "oklch(0.94 0.07 75)", text: "oklch(0.45 0.15 75)", dot: "oklch(0.72 0.16 75)" },
     critical: { bg: "oklch(0.95 0.06 15)", text: "oklch(0.50 0.18 15)", dot: "oklch(0.60 0.20 15)" },
-    opportunity: { bg: "oklch(0.92 0.06 195)", text: "oklch(0.35 0.10 195)", dot: "oklch(0.42 0.12 195)" },
+    opportunity: { bg: "oklch(0.92 0.06 193.7)", text: "oklch(0.35 0.10 193.7)", dot: "oklch(0.38 0.153 193.7)" },
   };
   const colors = statusColors[node.status];
 
@@ -192,7 +192,7 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-center gap-4 text-xs">
               <div className="flex items-center gap-1.5">
-                <div className="w-3 h-0.5 rounded" style={{ background: "oklch(0.42 0.12 195)" }} />
+                <div className="w-3 h-0.5 rounded" style={{ background: "oklch(0.38 0.153 193.7)" }} />
                 <span className="text-muted-foreground">Current</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -213,8 +213,8 @@ export default function DashboardPage() {
                   <stop offset="95%" stopColor="oklch(0.72 0.16 75)" stopOpacity={0.02} />
                 </linearGradient>
                 <linearGradient id="currentGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="oklch(0.42 0.12 195)" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="oklch(0.42 0.12 195)" stopOpacity={0.02} />
+                  <stop offset="5%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.004 240)" />
@@ -225,7 +225,7 @@ export default function DashboardPage() {
                 formatter={(value: unknown) => { const v = value as number | null; return v !== null ? [`${v}%`, ""] : ["—", ""]; }}
               />
               <Area type="monotone" dataKey="goal" stroke="oklch(0.72 0.16 75)" strokeWidth={1.5} strokeDasharray="4 3" fill="url(#gapGradient)" dot={false} />
-              <Area type="monotone" dataKey="current" stroke="oklch(0.42 0.12 195)" strokeWidth={2} fill="url(#currentGradient)" dot={{ r: 3, fill: "oklch(0.42 0.12 195)", strokeWidth: 0 }} connectNulls={false} />
+              <Area type="monotone" dataKey="current" stroke="oklch(0.38 0.153 193.7)" strokeWidth={2} fill="url(#currentGradient)" dot={{ r: 3, fill: "oklch(0.38 0.153 193.7)", strokeWidth: 0 }} connectNulls={false} />
               <Line type="monotone" dataKey="baseline" stroke="oklch(0.75 0.01 240)" strokeWidth={1} dot={false} strokeDasharray="2 2" />
             </AreaChart>
           </ResponsiveContainer>
@@ -245,7 +245,7 @@ export default function DashboardPage() {
                 contentStyle={{ background: "white", border: "1px solid oklch(0.90 0.005 240)", borderRadius: "8px", fontSize: "12px" }}
                 formatter={(value: number) => [`$${value}M`, "Cost"]}
               />
-              <Bar dataKey="cost" fill="oklch(0.42 0.12 195)" radius={[0, 3, 3, 0]} />
+              <Bar dataKey="cost" fill="oklch(0.38 0.153 193.7)" radius={[0, 3, 3, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -322,7 +322,7 @@ export default function DashboardPage() {
               <h4 className="text-sm font-semibold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>{opp.title}</h4>
               <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{opp.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-medium" style={{ color: "oklch(0.42 0.12 195)" }}>
+                <span className="text-xs font-mono font-medium" style={{ color: "oklch(0.38 0.153 193.7)" }}>
                   +${(opp.estimatedSaving / 1000).toFixed(0)}K/yr
                 </span>
                 <span className="text-xs text-muted-foreground">{opp.estimatedTimeToValue}</span>
@@ -342,7 +342,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground">{selectedKPI.category} · Detailed breakdown</p>
               </SheetHeader>
 
-              <div className="p-5 rounded-lg" style={{ background: "oklch(0.94 0.06 195)" }}>
+              <div className="p-5 rounded-lg" style={{ background: "oklch(0.91 0.046 193.7)" }}>
                 <p className="section-label mb-1">Current Value</p>
                 <div className="flex items-baseline gap-2">
                   <span className="kpi-value-lg">{selectedKPI.value}</span>
@@ -357,15 +357,15 @@ export default function DashboardPage() {
                   <AreaChart data={trendData.costTrend} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
                     <defs>
                       <linearGradient id="drillGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="oklch(0.42 0.12 195)" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="oklch(0.42 0.12 195)" stopOpacity={0.02} />
+                        <stop offset="5%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="oklch(0.38 0.153 193.7)" stopOpacity={0.02} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.004 240)" />
                     <XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
                     <Tooltip contentStyle={{ fontSize: "12px", borderRadius: "8px" }} />
-                    <Area type="monotone" dataKey="value" stroke="oklch(0.42 0.12 195)" strokeWidth={2} fill="url(#drillGrad)" dot={{ r: 3, fill: "oklch(0.42 0.12 195)", strokeWidth: 0 }} />
+                    <Area type="monotone" dataKey="value" stroke="oklch(0.38 0.153 193.7)" strokeWidth={2} fill="url(#drillGrad)" dot={{ r: 3, fill: "oklch(0.38 0.153 193.7)", strokeWidth: 0 }} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -376,14 +376,14 @@ export default function DashboardPage() {
                   <div key={opp.id} className="p-3 rounded-lg border border-border mb-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">{opp.title}</span>
-                      <span className="text-xs font-mono" style={{ color: "oklch(0.42 0.12 195)" }}>+${(opp.estimatedSaving / 1000).toFixed(0)}K</span>
+                      <span className="text-xs font-mono" style={{ color: "oklch(0.38 0.153 193.7)" }}>+${(opp.estimatedSaving / 1000).toFixed(0)}K</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5">{opp.estimatedTimeToValue}</p>
                   </div>
                 ))}
               </div>
 
-              <Button className="w-full gap-2" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} asChild>
+              <Button className="w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
                 <Link href="/opportunities">
                   View All Opportunities <ArrowRight size={14} />
                 </Link>
@@ -404,8 +404,8 @@ export default function DashboardPage() {
                   <span
                     className="text-xs font-medium px-2 py-0.5 rounded-full"
                     style={{
-                      background: selectedProcess.status === "optimal" ? "oklch(0.92 0.06 155)" : selectedProcess.status === "critical" ? "oklch(0.95 0.06 15)" : selectedProcess.status === "opportunity" ? "oklch(0.92 0.06 195)" : "oklch(0.94 0.07 75)",
-                      color: selectedProcess.status === "optimal" ? "oklch(0.42 0.14 155)" : selectedProcess.status === "critical" ? "oklch(0.50 0.18 15)" : selectedProcess.status === "opportunity" ? "oklch(0.35 0.10 195)" : "oklch(0.45 0.15 75)",
+                      background: selectedProcess.status === "optimal" ? "oklch(0.92 0.06 155)" : selectedProcess.status === "critical" ? "oklch(0.95 0.06 15)" : selectedProcess.status === "opportunity" ? "oklch(0.92 0.06 193.7)" : "oklch(0.94 0.07 75)",
+                      color: selectedProcess.status === "optimal" ? "oklch(0.42 0.14 155)" : selectedProcess.status === "critical" ? "oklch(0.50 0.18 15)" : selectedProcess.status === "opportunity" ? "oklch(0.35 0.10 193.7)" : "oklch(0.45 0.15 75)",
                     }}
                   >
                     {selectedProcess.status}
@@ -457,7 +457,7 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              <Button className="w-full gap-2" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} asChild>
+              <Button className="w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
                 <Link href="/process">
                   View Full Process Map <ArrowRight size={14} />
                 </Link>

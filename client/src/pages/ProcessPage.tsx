@@ -18,7 +18,7 @@ const statusConfig = {
   optimal: { bg: "oklch(0.92 0.06 155)", text: "oklch(0.42 0.14 155)", border: "oklch(0.62 0.14 155)", label: "Optimal" },
   warning: { bg: "oklch(0.94 0.07 75)", text: "oklch(0.45 0.15 75)", border: "oklch(0.72 0.16 75)", label: "Warning" },
   critical: { bg: "oklch(0.95 0.06 15)", text: "oklch(0.50 0.18 15)", border: "oklch(0.60 0.20 15)", label: "Critical" },
-  opportunity: { bg: "oklch(0.92 0.06 195)", text: "oklch(0.35 0.10 195)", border: "oklch(0.42 0.12 195)", label: "Opportunity" },
+  opportunity: { bg: "oklch(0.92 0.06 193.7)", text: "oklch(0.35 0.10 193.7)", border: "oklch(0.38 0.153 193.7)", label: "Opportunity" },
 };
 
 const departments = Array.from(new Set(processNodes.map(n => n.department)));
@@ -72,7 +72,7 @@ function ProcessNodeCard({ node, index, onClick }: { node: ProcessNode; index: n
           <div className="flex-1 h-1 rounded-full bg-muted overflow-hidden">
             <div
               className="h-full rounded-full transition-all"
-              style={{ width: `${node.automationRate}%`, background: "oklch(0.42 0.12 195)" }}
+              style={{ width: `${node.automationRate}%`, background: "oklch(0.38 0.153 193.7)" }}
             />
           </div>
           <span className="text-[10px] text-muted-foreground">{node.automationRate}%</span>
@@ -129,9 +129,9 @@ export default function ProcessPage() {
               onClick={() => setFilterStatus(status)}
               className="text-xs px-3 py-1.5 rounded-full border transition-all"
               style={{
-                background: filterStatus === status ? "oklch(0.42 0.12 195)" : "transparent",
+                background: filterStatus === status ? "oklch(0.38 0.153 193.7)" : "transparent",
                 color: filterStatus === status ? "white" : "oklch(0.50 0.01 240)",
-                borderColor: filterStatus === status ? "oklch(0.42 0.12 195)" : "oklch(0.88 0.005 240)",
+                borderColor: filterStatus === status ? "oklch(0.38 0.153 193.7)" : "oklch(0.88 0.005 240)",
               }}
             >
               {status === "all" ? "All" : status.charAt(0).toUpperCase() + status.slice(1)}
@@ -143,7 +143,7 @@ export default function ProcessPage() {
       {/* Summary strip */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { label: "Total Monthly Cost", value: `$${(totalCost / 1000).toFixed(0)}K`, color: "oklch(0.42 0.12 195)" },
+          { label: "Total Monthly Cost", value: `$${(totalCost / 1000).toFixed(0)}K`, color: "oklch(0.38 0.153 193.7)" },
           { label: "Avg Automation Rate", value: `${avgAutomation}%`, color: "oklch(0.62 0.14 155)" },
           { label: "Avg Cycle Time", value: `${avgCycleTime}d`, color: "oklch(0.72 0.16 75)" },
           { label: "Critical Processes", value: `${processNodes.filter(n => n.status === "critical").length}`, color: "oklch(0.60 0.20 15)" },
@@ -181,11 +181,11 @@ export default function ProcessPage() {
                 {/* Lane label */}
                 <div
                   className="w-28 flex-shrink-0 flex items-center justify-center px-3 py-4 border-r border-border"
-                  style={{ background: deptIndex % 2 === 0 ? "oklch(0.97 0.003 195)" : "oklch(0.985 0.002 240)" }}
+                  style={{ background: deptIndex % 2 === 0 ? "oklch(0.97 0.003 193.7)" : "oklch(0.985 0.002 240)" }}
                 >
                   <span
                     className="text-xs font-semibold text-center leading-tight"
-                    style={{ color: "oklch(0.42 0.12 195)", fontFamily: "'DM Sans', sans-serif", writingMode: "horizontal-tb" }}
+                    style={{ color: "oklch(0.38 0.153 193.7)", fontFamily: "'DM Sans', sans-serif", writingMode: "horizontal-tb" }}
                   >
                     {dept}
                   </span>
@@ -311,7 +311,7 @@ export default function ProcessPage() {
                       <div key={opp.id} className="p-4 rounded-lg border border-border">
                         <div className="flex items-start justify-between mb-2">
                           <span className="opportunity-badge">{opp.type}</span>
-                          <span className="text-xs font-mono font-semibold" style={{ color: "oklch(0.42 0.12 195)" }}>
+                          <span className="text-xs font-mono font-semibold" style={{ color: "oklch(0.38 0.153 193.7)" }}>
                             +${(opp.estimatedSaving / 1000).toFixed(0)}K/yr
                           </span>
                         </div>

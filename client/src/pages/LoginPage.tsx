@@ -41,7 +41,7 @@ export default function LoginPage() {
       {/* Left Panel — Brand Hero */}
       <div
         className="hidden lg:flex flex-col justify-between w-[52%] relative overflow-hidden p-12"
-        style={{ background: "oklch(0.22 0.06 195)" }}
+        style={{ background: "oklch(0.162 0.1530 193.7)" }}
       >
         {/* Background visual */}
         <div
@@ -77,11 +77,11 @@ export default function LoginPage() {
         >
           <h1
             className="text-4xl font-bold leading-tight mb-4"
-            style={{ color: "oklch(0.97 0.01 195)", fontFamily: "'DM Sans', sans-serif" }}
+            style={{ color: "oklch(0.97 0.01 193.7)", fontFamily: "'DM Sans', sans-serif" }}
           >
             Where is your organization leaving value on the table?
           </h1>
-          <p className="text-lg leading-relaxed mb-10" style={{ color: "oklch(0.75 0.04 195)" }}>
+          <p className="text-lg leading-relaxed mb-10" style={{ color: "oklch(0.75 0.04 193.7)" }}>
             Connect your business systems. Map your end-to-end processes. Identify the opportunities that move the needle.
           </p>
 
@@ -101,11 +101,11 @@ export default function LoginPage() {
               >
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: "oklch(0.42 0.12 195)" }}
+                  style={{ background: "oklch(0.38 0.153 193.7)" }}
                 >
-                  <item.icon size={15} style={{ color: "oklch(0.90 0.04 195)" }} />
+                  <item.icon size={15} style={{ color: "oklch(0.90 0.04 193.7)" }} />
                 </div>
-                <span className="text-sm" style={{ color: "oklch(0.80 0.03 195)" }}>{item.text}</span>
+                <span className="text-sm" style={{ color: "oklch(0.80 0.03 193.7)" }}>{item.text}</span>
               </motion.div>
             ))}
           </div>
@@ -125,7 +125,7 @@ export default function LoginPage() {
           ].map((stat, i) => (
             <div key={i}>
               <p className="text-2xl font-bold" style={{ color: "oklch(0.72 0.16 75)", fontFamily: "'JetBrains Mono', monospace" }}>{stat.value}</p>
-              <p className="text-xs" style={{ color: "oklch(0.62 0.04 195)" }}>{stat.label}</p>
+              <p className="text-xs" style={{ color: "oklch(0.62 0.04 193.7)" }}>{stat.label}</p>
             </div>
           ))}
         </motion.div>
@@ -151,7 +151,7 @@ export default function LoginPage() {
           <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Sign in to your workspace</h2>
           <p className="text-sm text-muted-foreground mb-8">
             Don't have an account?{" "}
-            <a href="#" className="font-medium" style={{ color: "oklch(0.42 0.12 195)" }} onClick={(e) => { e.preventDefault(); }}>
+            <a href="#" className="font-medium" style={{ color: "oklch(0.38 0.153 193.7)" }} onClick={(e) => { e.preventDefault(); }}>
               Request access
             </a>
           </p>
@@ -207,7 +207,7 @@ export default function LoginPage() {
             <Button
               type="submit"
               className="w-full h-10 font-semibold gap-2"
-              style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+              style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
               disabled={loading}
             >
               {loading ? (

@@ -78,20 +78,20 @@ export default function OnboardingPage() {
                 <div
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300"
                   style={{
-                    background: step > s.id ? "oklch(0.42 0.12 195)" : step === s.id ? "oklch(0.42 0.12 195)" : "oklch(0.92 0.004 240)",
+                    background: step > s.id ? "oklch(0.38 0.153 193.7)" : step === s.id ? "oklch(0.38 0.153 193.7)" : "oklch(0.92 0.004 240)",
                     color: step >= s.id ? "white" : "oklch(0.55 0.015 240)",
                   }}
                 >
                   {step > s.id ? <Check size={14} /> : s.id}
                 </div>
-                <span className="text-xs mt-1.5 font-medium" style={{ color: step >= s.id ? "oklch(0.42 0.12 195)" : "oklch(0.60 0.01 240)" }}>
+                <span className="text-xs mt-1.5 font-medium" style={{ color: step >= s.id ? "oklch(0.38 0.153 193.7)" : "oklch(0.60 0.01 240)" }}>
                   {s.label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (
                 <div
                   className="w-24 h-0.5 mx-2 mb-5 transition-all duration-500"
-                  style={{ background: step > s.id ? "oklch(0.42 0.12 195)" : "oklch(0.88 0.005 240)" }}
+                  style={{ background: step > s.id ? "oklch(0.38 0.153 193.7)" : "oklch(0.88 0.005 240)" }}
                 />
               )}
             </div>
@@ -145,7 +145,7 @@ export default function OnboardingPage() {
 
                 <Button
                   className="mt-8 gap-2"
-                  style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                  style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                   onClick={() => setStep(2)}
                 >
                   Continue <ChevronRight size={15} />
@@ -176,21 +176,21 @@ export default function OnboardingPage() {
                         onClick={() => toggleSource(source.id)}
                         className="p-4 rounded-lg border cursor-pointer transition-all"
                         style={{
-                          borderColor: isSelected ? "oklch(0.42 0.12 195)" : "oklch(0.90 0.005 240)",
-                          background: isSelected ? "oklch(0.94 0.06 195)" : "white",
+                          borderColor: isSelected ? "oklch(0.38 0.153 193.7)" : "oklch(0.90 0.005 240)",
+                          background: isSelected ? "oklch(0.91 0.046 193.7)" : "white",
                         }}
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div
                             className="w-8 h-8 rounded-md flex items-center justify-center"
-                            style={{ background: isSelected ? "oklch(0.42 0.12 195)" : "oklch(0.94 0.005 240)" }}
+                            style={{ background: isSelected ? "oklch(0.38 0.153 193.7)" : "oklch(0.94 0.005 240)" }}
                           >
                             <Icon size={15} style={{ color: isSelected ? "white" : "oklch(0.50 0.01 240)" }} />
                           </div>
                           {isSelected && (
                             <div
                               className="w-5 h-5 rounded-full flex items-center justify-center"
-                              style={{ background: "oklch(0.42 0.12 195)" }}
+                              style={{ background: "oklch(0.38 0.153 193.7)" }}
                             >
                               <Check size={11} color="white" />
                             </div>
@@ -207,7 +207,7 @@ export default function OnboardingPage() {
                   <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
                   <Button
                     className="gap-2"
-                    style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                    style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                     onClick={() => setStep(3)}
                     disabled={selected.length === 0}
                   >
@@ -235,7 +235,7 @@ export default function OnboardingPage() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Data sources connected</span>
-                    <Badge style={{ background: "oklch(0.94 0.06 195)", color: "oklch(0.30 0.10 195)" }}>
+                    <Badge style={{ background: "oklch(0.91 0.046 193.7)", color: "oklch(0.28 0.153 193.7)" }}>
                       {selected.length} sources
                     </Badge>
                   </div>
@@ -253,7 +253,7 @@ export default function OnboardingPage() {
                   <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
                   <Button
                     className="gap-2"
-                    style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                    style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                     onClick={handleFinish}
                   >
                     Launch Dashboard <ChevronRight size={15} />

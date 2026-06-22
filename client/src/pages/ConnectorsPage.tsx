@@ -69,9 +69,9 @@ function ConnectorCard({ source, index, onConfigure }: { source: DataSource; ind
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: source.status === "connected" ? "oklch(0.94 0.06 195)" : "oklch(0.94 0.005 240)" }}
+            style={{ background: source.status === "connected" ? "oklch(0.91 0.046 193.7)" : "oklch(0.94 0.005 240)" }}
           >
-            <Icon size={18} style={{ color: source.status === "connected" ? "oklch(0.42 0.12 195)" : "oklch(0.55 0.01 240)" }} />
+            <Icon size={18} style={{ color: source.status === "connected" ? "oklch(0.38 0.153 193.7)" : "oklch(0.55 0.01 240)" }} />
           </div>
           <div>
             <p className="text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>{source.name}</p>
@@ -143,7 +143,7 @@ function ConnectorCard({ source, index, onConfigure }: { source: DataSource; ind
           <Button
             size="sm"
             className="flex-1 gap-1.5 text-xs"
-            style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+            style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
             onClick={() => onConfigure(source)}
           >
             <Plus size={11} /> Connect
@@ -187,7 +187,7 @@ export default function ConnectorsPage() {
         <Button
           size="sm"
           className="gap-1.5"
-          style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+          style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
           onClick={() => toast.info("Custom connector setup coming soon")}
         >
           <Plus size={13} /> Add Custom Source
@@ -307,7 +307,7 @@ export default function ConnectorsPage() {
                   <Button variant="outline" className="flex-1" onClick={() => setConfigSource(null)}>Cancel</Button>
                   <Button
                     className="flex-1 gap-1.5"
-                    style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                    style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                     onClick={handleConnect}
                   >
                     <Wifi size={13} />

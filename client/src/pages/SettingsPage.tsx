@@ -25,7 +25,7 @@ const teamMembers = [
 ];
 
 const roleColors: Record<string, { bg: string; text: string }> = {
-  Admin: { bg: "oklch(0.92 0.06 195)", text: "oklch(0.35 0.10 195)" },
+  Admin: { bg: "oklch(0.92 0.06 193.7)", text: "oklch(0.35 0.10 193.7)" },
   Analyst: { bg: "oklch(0.94 0.07 75)", text: "oklch(0.45 0.15 75)" },
   Viewer: { bg: "oklch(0.94 0.005 240)", text: "oklch(0.45 0.01 240)" },
 };
@@ -50,7 +50,7 @@ export default function SettingsPage() {
         <Button
           size="sm"
           className="gap-1.5"
-          style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+          style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
           onClick={handleSave}
         >
           {saved ? <><Check size={13} /> Saved</> : <><Save size={13} /> Save Changes</>}
@@ -172,7 +172,7 @@ export default function SettingsPage() {
               <Button
                 size="sm"
                 className="gap-1.5 text-xs"
-                style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                 onClick={() => toast.info("Invite flow coming soon")}
               >
                 + Invite Member

@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   CLARITY DESIGN SYSTEM — Corporate Modernism
-   Signature: Deep Teal + Amber | DM Sans + JetBrains Mono
+   VANTAGEIQ DESIGN SYSTEM — Corporate Modernism
+   Signature: #002e2d Deep Forest + Amber | DM Sans + JetBrains Mono
    ============================================================ */
 
 @theme inline {
@@ -56,30 +56,31 @@
 }
 
 :root {
-  /* Clarity Brand Colors */
-  --teal: oklch(0.42 0.12 195);
-  --teal-light: oklch(0.88 0.06 195);
-  --teal-dark: oklch(0.30 0.10 195);
+  /* VantageIQ Brand Colors — Base: #002e2d */
+  --teal: oklch(0.162 0.1530 193.7);        /* #002e2d — brand base */
+  --teal-light: oklch(0.91 0.046 193.7);    /* very light tint */
+  --teal-dark: oklch(0.10 0.10 193.7);      /* deepest shade */
+  --teal-mid: oklch(0.46 0.153 193.7);      /* interactive/button */
   --amber-brand: oklch(0.72 0.16 75);
   --amber-light: oklch(0.94 0.07 75);
   --emerald-brand: oklch(0.62 0.14 155);
 
-  /* Primary = Teal */
-  --primary: oklch(0.42 0.12 195);
-  --primary-foreground: oklch(0.98 0.005 195);
+  /* Primary = Brand Green (interactive, slightly lighter for contrast on white) */
+  --primary: oklch(0.38 0.153 193.7);
+  --primary-foreground: oklch(0.98 0.005 193.7);
 
-  /* Sidebar = Dark Teal */
-  --sidebar: oklch(0.22 0.06 195);
-  --sidebar-foreground: oklch(0.88 0.02 195);
-  --sidebar-primary: oklch(0.42 0.12 195);
-  --sidebar-primary-foreground: oklch(0.98 0.005 195);
-  --sidebar-accent: oklch(0.30 0.08 195);
-  --sidebar-accent-foreground: oklch(0.95 0.01 195);
-  --sidebar-border: oklch(0.32 0.06 195);
-  --sidebar-ring: oklch(0.55 0.12 195);
+  /* Sidebar = #002e2d exact */
+  --sidebar: oklch(0.162 0.1530 193.7);
+  --sidebar-foreground: oklch(0.90 0.02 193.7);
+  --sidebar-primary: oklch(0.46 0.153 193.7);
+  --sidebar-primary-foreground: oklch(0.98 0.005 193.7);
+  --sidebar-accent: oklch(0.28 0.153 193.7);
+  --sidebar-accent-foreground: oklch(0.95 0.01 193.7);
+  --sidebar-border: oklch(0.28 0.153 193.7);
+  --sidebar-ring: oklch(0.55 0.12 193.7);
 
   /* Charts */
-  --chart-1: oklch(0.42 0.12 195);
+  --chart-1: oklch(0.38 0.153 193.7);
   --chart-2: oklch(0.72 0.16 75);
   --chart-3: oklch(0.62 0.14 155);
   --chart-4: oklch(0.60 0.20 15);
@@ -99,13 +100,13 @@
   --secondary-foreground: oklch(0.35 0.015 240);
   --muted: oklch(0.96 0.004 240);
   --muted-foreground: oklch(0.52 0.015 240);
-  --accent: oklch(0.94 0.06 195);
-  --accent-foreground: oklch(0.30 0.10 195);
+  --accent: oklch(0.91 0.046 193.7);
+  --accent-foreground: oklch(0.20 0.12 193.7);
   --destructive: oklch(0.60 0.20 15);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.90 0.005 240);
   --input: oklch(0.90 0.005 240);
-  --ring: oklch(0.42 0.12 195);
+  --ring: oklch(0.38 0.153 193.7);
 
   /* Easing */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -114,8 +115,8 @@
 
 /* Dark mode (not default but available) */
 .dark {
-  --primary: oklch(0.55 0.12 195);
-  --primary-foreground: oklch(0.98 0.005 195);
+  --primary: oklch(0.55 0.12 193.7);
+  --primary-foreground: oklch(0.98 0.005 193.7);
   --background: oklch(0.13 0.01 240);
   --foreground: oklch(0.92 0.005 240);
   --card: oklch(0.18 0.01 240);
@@ -126,15 +127,15 @@
   --secondary-foreground: oklch(0.75 0.005 240);
   --muted: oklch(0.25 0.01 240);
   --muted-foreground: oklch(0.60 0.01 240);
-  --accent: oklch(0.25 0.06 195);
-  --accent-foreground: oklch(0.85 0.06 195);
+  --accent: oklch(0.25 0.06 193.7);
+  --accent-foreground: oklch(0.85 0.06 193.7);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.55 0.12 195);
-  --sidebar: oklch(0.15 0.04 195);
-  --sidebar-foreground: oklch(0.85 0.02 195);
-  --sidebar-accent: oklch(0.22 0.06 195);
-  --sidebar-accent-foreground: oklch(0.95 0.01 195);
+  --ring: oklch(0.55 0.12 193.7);
+  --sidebar: oklch(0.162 0.1530 193.7);
+  --sidebar-foreground: oklch(0.85 0.02 193.7);
+  --sidebar-accent: oklch(0.28 0.153 193.7);
+  --sidebar-accent-foreground: oklch(0.95 0.01 193.7);
   --sidebar-border: oklch(1 0 0 / 8%);
 }
 

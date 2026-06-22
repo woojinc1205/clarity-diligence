@@ -31,7 +31,7 @@ const sectionIcons: Record<string, React.ElementType> = {
 };
 
 const sectionColors: Record<string, string> = {
-  summary: "oklch(0.42 0.12 195)",
+  summary: "oklch(0.38 0.153 193.7)",
   finding: "oklch(0.60 0.20 15)",
   opportunity: "oklch(0.72 0.16 75)",
   roadmap: "oklch(0.55 0.15 270)",
@@ -53,7 +53,7 @@ const phaseData = [
     duration: "Months 3–5",
     items: ["Proposal Automation (CPQ)", "Onboarding Consolidation"],
     saving: 445,
-    color: "oklch(0.42 0.12 195)",
+    color: "oklch(0.38 0.153 193.7)",
   },
   {
     phase: "Phase 3",
@@ -176,7 +176,7 @@ export default function ReportPage() {
           <Button
             size="sm"
             className="gap-1.5"
-            style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+            style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
             onClick={handleGenerate}
             disabled={generating}
           >
@@ -192,7 +192,7 @@ export default function ReportPage() {
       {/* Report Cover */}
       <div
         className="rounded-xl p-8 relative overflow-hidden"
-        style={{ background: "oklch(0.22 0.06 195)" }}
+        style={{ background: "oklch(0.162 0.1530 193.7)" }}
       >
         <div
           className="absolute inset-0 opacity-10"
@@ -210,26 +210,26 @@ export default function ReportPage() {
                   alt="VantageIQ"
                   className="h-6 object-contain"
                 />
-                <span className="text-sm font-semibold" style={{ color: "oklch(0.75 0.04 195)", fontFamily: "'DM Sans', sans-serif" }}>
+                <span className="text-sm font-semibold" style={{ color: "oklch(0.75 0.04 193.7)", fontFamily: "'DM Sans', sans-serif" }}>
                   Intelligence Report
                 </span>
               </div>
-              <h2 className="text-3xl font-bold mb-1" style={{ color: "oklch(0.97 0.01 195)", fontFamily: "'DM Sans', sans-serif" }}>
+              <h2 className="text-3xl font-bold mb-1" style={{ color: "oklch(0.97 0.01 193.7)", fontFamily: "'DM Sans', sans-serif" }}>
                 Organizational Due Diligence
               </h2>
-              <p className="text-lg" style={{ color: "oklch(0.80 0.04 195)" }}>Acme Consulting Group</p>
-              <p className="text-sm mt-2" style={{ color: "oklch(0.62 0.04 195)" }}>Q2 2026 · Confidential</p>
+              <p className="text-lg" style={{ color: "oklch(0.80 0.04 193.7)" }}>Acme Consulting Group</p>
+              <p className="text-sm mt-2" style={{ color: "oklch(0.62 0.04 193.7)" }}>Q2 2026 · Confidential</p>
             </div>
             <div className="text-right">
-              <p className="text-sm mb-1" style={{ color: "oklch(0.65 0.04 195)" }}>Total Opportunity Value</p>
+              <p className="text-sm mb-1" style={{ color: "oklch(0.65 0.04 193.7)" }}>Total Opportunity Value</p>
               <p className="text-4xl font-bold" style={{ color: "oklch(0.72 0.16 75)", fontFamily: "'JetBrains Mono', monospace" }}>
                 ${(totalSaving / 1000000).toFixed(2)}M
               </p>
-              <p className="text-xs mt-1" style={{ color: "oklch(0.55 0.04 195)" }}>Estimated annual impact</p>
+              <p className="text-xs mt-1" style={{ color: "oklch(0.55 0.04 193.7)" }}>Estimated annual impact</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-4 mt-8 pt-6 border-t" style={{ borderColor: "oklch(0.32 0.06 195)" }}>
+          <div className="grid grid-cols-4 gap-4 mt-8 pt-6 border-t" style={{ borderColor: "oklch(0.28 0.153 193.7)" }}>
             {[
               { label: "Data Sources", value: "6" },
               { label: "Processes Analyzed", value: processNodes.length.toString() },
@@ -237,8 +237,8 @@ export default function ReportPage() {
               { label: "Recommended Actions", value: "18" },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="text-2xl font-bold" style={{ color: "oklch(0.97 0.01 195)", fontFamily: "'JetBrains Mono', monospace" }}>{stat.value}</p>
-                <p className="text-xs" style={{ color: "oklch(0.62 0.04 195)" }}>{stat.label}</p>
+                <p className="text-2xl font-bold" style={{ color: "oklch(0.97 0.01 193.7)", fontFamily: "'JetBrains Mono', monospace" }}>{stat.value}</p>
+                <p className="text-xs" style={{ color: "oklch(0.62 0.04 193.7)" }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -340,7 +340,7 @@ export default function ReportPage() {
           <Button variant="outline" size="sm" className="gap-1.5" onClick={handleExport}>
             <Download size={13} /> Download PDF
           </Button>
-          <Button size="sm" className="gap-1.5" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} onClick={handleShare}>
+          <Button size="sm" className="gap-1.5" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} onClick={handleShare}>
             <Share2 size={13} /> Share Report
           </Button>
         </div>

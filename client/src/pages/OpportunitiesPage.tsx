@@ -81,7 +81,7 @@ function OpportunityCard({ opp, index, onClick }: { opp: Opportunity; index: num
         <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border">
           <div>
             <p className="section-label mb-0.5">Saving</p>
-            <p className="text-sm font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.42 0.12 195)" }}>
+            <p className="text-sm font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.38 0.153 193.7)" }}>
               ${(opp.estimatedSaving / 1000).toFixed(0)}K/yr
             </p>
           </div>
@@ -123,7 +123,7 @@ function LeverControl({ lever, index }: { lever: GoalLever; index: number }) {
 
       <div className="flex items-center justify-between mb-2 text-xs">
         <span className="text-muted-foreground">Baseline: <strong>{lever.baselineValue}{lever.unit}</strong></span>
-        <span className="font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.42 0.12 195)" }}>
+        <span className="font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.38 0.153 193.7)" }}>
           {value}{lever.unit}
         </span>
         <span className="text-muted-foreground">Goal: <strong style={{ color: "oklch(0.72 0.16 75)" }}>{lever.targetValue}{lever.unit}</strong></span>
@@ -186,7 +186,7 @@ export default function OpportunitiesPage() {
             {opportunities.length} opportunities identified · ${(totalSaving / 1000000).toFixed(2)}M total estimated impact
           </p>
         </div>
-        <Button className="gap-2" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} asChild>
+        <Button className="gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
           <Link href="/report">
             <Target size={14} /> Generate Report
           </Link>
@@ -196,7 +196,7 @@ export default function OpportunitiesPage() {
       {/* Summary KPIs */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { label: "Total Opportunities", value: opportunities.length.toString(), color: "oklch(0.42 0.12 195)" },
+          { label: "Total Opportunities", value: opportunities.length.toString(), color: "oklch(0.38 0.153 193.7)" },
           { label: "High Impact", value: highImpact.toString(), color: "oklch(0.60 0.20 15)" },
           { label: "Quick Wins", value: quickWins.toString(), color: "oklch(0.62 0.14 155)" },
           { label: "Est. Annual Saving", value: `$${(totalSaving / 1000000).toFixed(2)}M`, color: "oklch(0.72 0.16 75)" },
@@ -231,9 +231,9 @@ export default function OpportunitiesPage() {
                 onClick={() => setFilterType(type)}
                 className="text-xs px-3 py-1.5 rounded-full border transition-all capitalize"
                 style={{
-                  background: filterType === type ? "oklch(0.42 0.12 195)" : "transparent",
+                  background: filterType === type ? "oklch(0.38 0.153 193.7)" : "transparent",
                   color: filterType === type ? "white" : "oklch(0.50 0.01 240)",
-                  borderColor: filterType === type ? "oklch(0.42 0.12 195)" : "oklch(0.88 0.005 240)",
+                  borderColor: filterType === type ? "oklch(0.38 0.153 193.7)" : "oklch(0.88 0.005 240)",
                 }}
               >
                 {type}
@@ -250,12 +250,12 @@ export default function OpportunitiesPage() {
 
         {/* Goal Levers Tab */}
         <TabsContent value="levers" className="mt-4">
-          <div className="mb-4 p-4 rounded-lg" style={{ background: "oklch(0.94 0.06 195 / 0.4)", borderLeft: "3px solid oklch(0.42 0.12 195)" }}>
+          <div className="mb-4 p-4 rounded-lg" style={{ background: "oklch(0.94 0.06 195 / 0.4)", borderLeft: "3px solid oklch(0.38 0.153 193.7)" }}>
             <div className="flex items-start gap-2">
-              <Info size={14} style={{ color: "oklch(0.42 0.12 195)" }} className="mt-0.5 flex-shrink-0" />
+              <Info size={14} style={{ color: "oklch(0.38 0.153 193.7)" }} className="mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold" style={{ color: "oklch(0.35 0.10 195)" }}>How Goal Levers Work</p>
-                <p className="text-xs mt-0.5" style={{ color: "oklch(0.45 0.08 195)" }}>
+                <p className="text-sm font-semibold" style={{ color: "oklch(0.28 0.153 193.7)" }}>How Goal Levers Work</p>
+                <p className="text-xs mt-0.5" style={{ color: "oklch(0.38 0.153 193.7)" }}>
                   Adjust each lever to set your target goals. VantageIQ will calculate the projected impact on your organization and surface the specific opportunities that drive each lever toward your goal.
                 </p>
               </div>
@@ -277,13 +277,13 @@ export default function OpportunitiesPage() {
                 { label: "Time to Full Impact", value: "12 months", sub: "Assuming phased implementation" },
               ].map((item) => (
                 <div key={item.label} className="text-center p-3 rounded-lg bg-muted/50">
-                  <p className="text-xl font-bold mb-0.5" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.42 0.12 195)" }}>{item.value}</p>
+                  <p className="text-xl font-bold mb-0.5" style={{ fontFamily: "'JetBrains Mono', monospace", color: "oklch(0.38 0.153 193.7)" }}>{item.value}</p>
                   <p className="text-xs font-medium mb-0.5">{item.label}</p>
                   <p className="text-xs text-muted-foreground">{item.sub}</p>
                 </div>
               ))}
             </div>
-            <Button className="mt-4 w-full gap-2" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} asChild>
+            <Button className="mt-4 w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
               <Link href="/report">
                 Generate Opportunity Report <ArrowRight size={14} />
               </Link>
@@ -368,7 +368,7 @@ export default function OpportunitiesPage() {
               {/* Metrics */}
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: "Est. Annual Saving", value: `$${(selectedOpp.estimatedSaving / 1000).toFixed(0)}K`, color: "oklch(0.42 0.12 195)" },
+                  { label: "Est. Annual Saving", value: `$${(selectedOpp.estimatedSaving / 1000).toFixed(0)}K`, color: "oklch(0.38 0.153 193.7)" },
                   { label: "Effort Level", value: selectedOpp.effort.charAt(0).toUpperCase() + selectedOpp.effort.slice(1), color: effortColors[selectedOpp.effort] },
                   { label: "Time to Value", value: selectedOpp.estimatedTimeToValue, color: "oklch(0.35 0.01 240)" },
                 ].map((m) => (
@@ -398,7 +398,7 @@ export default function OpportunitiesPage() {
                                 ? ((selectedOpp.currentValue - selectedOpp.baselineValue) / (selectedOpp.targetValue - selectedOpp.baselineValue)) * 100
                                 : 0
                             ))}%`,
-                            background: "oklch(0.42 0.12 195)"
+                            background: "oklch(0.38 0.153 193.7)"
                           }}
                         />
                       </div>
@@ -426,7 +426,7 @@ export default function OpportunitiesPage() {
                     >
                       <div
                         className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        style={{ background: "oklch(0.42 0.12 195)", color: "white" }}
+                        style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }}
                       >
                         {i + 1}
                       </div>
@@ -436,7 +436,7 @@ export default function OpportunitiesPage() {
                 </div>
               </div>
 
-              <Button className="w-full gap-2" style={{ background: "oklch(0.42 0.12 195)", color: "white" }} asChild>
+              <Button className="w-full gap-2" style={{ background: "oklch(0.38 0.153 193.7)", color: "white" }} asChild>
                 <Link href="/report">
                   Include in Report <ArrowRight size={14} />
                 </Link>
